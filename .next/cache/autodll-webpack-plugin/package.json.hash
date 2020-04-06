@@ -1,0 +1,1 @@
+{"name":"ecommerce","version":"1.0.0","description":"hctive8 hybrid project 2","main":"index.js","scripts":{"dev":"next","build":"next build","start":"next start"},"author":"","license":"ISC","dependencies":{"isomorphic-unfetch":"^3.0.0","next":"^9.3.4","react":"^16.13.1","react-dom":"^16.13.1"},"readme":"ERROR: No README data found!","_id":"ecommerce@1.0.0"}
