@@ -106,70 +106,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/header.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 const linkStyle = {
   marginRight: 15
 };
 
-const Header = () => __jsx("div", {
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 8,
-    columnNumber: 5
-  }
-}, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: "/",
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 9,
-    columnNumber: 9
-  }
-}, __jsx("a", {
-  style: linkStyle,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 10,
-    columnNumber: 13
-  }
-}, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: "/cart",
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 12,
-    columnNumber: 9
-  }
-}, __jsx("a", {
-  style: linkStyle,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 13,
-    columnNumber: 13
-  }
-}, "Cart")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: "/wishlist",
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 15,
-    columnNumber: 9
-  }
-}, __jsx("a", {
-  style: linkStyle,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 16,
-    columnNumber: 13
-  }
-}, "Wishlist")));
+const Header = () => {
+  const cart = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.cart.items);
+  const wishlist = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.wishlist.items);
+  return __jsx("div", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12,
+      columnNumber: 9
+    }
+  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13,
+      columnNumber: 13
+    }
+  }, __jsx("a", {
+    style: linkStyle,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14,
+      columnNumber: 17
+    }
+  }, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/cart",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 13
+    }
+  }, __jsx("a", {
+    style: linkStyle,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 17
+    }
+  }, "Cart(", Object.keys(cart).length, ")")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/wishlist",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, __jsx("a", {
+    style: linkStyle,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 17
+    }
+  }, "Wishlist(", Object.keys(wishlist).length, ")")));
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
 
@@ -209,9 +216,9 @@ const Layout = props => __jsx("div", {
 
 /***/ }),
 
-/***/ "./components/productitem.js":
+/***/ "./components/productItem.js":
 /*!***********************************!*\
-  !*** ./components/productitem.js ***!
+  !*** ./components/productItem.js ***!
   \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -223,9 +230,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/productitem.js";
+/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
+var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/productItem.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -242,50 +251,45 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12,
+      lineNumber: 13,
       columnNumber: 9
     }
-  }, __jsx("img", {
-    src: image,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 13,
-      columnNumber: 13
-    }
-  }), __jsx("h1", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 14,
-      columnNumber: 13
-    }
-  }, name), __jsx("h3", {
+  }, __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 15,
       columnNumber: 13
     }
-  }, price), __jsx("p", {
+  }, name), __jsx("h3", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 16,
       columnNumber: 13
     }
-  }, description), __jsx("button", {
+  }, price), __jsx("p", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 17,
       columnNumber: 13
     }
-  }, "Add To Wishlist"), __jsx("button", {
+  }, description), __jsx("button", {
+    onClick: () => {
+      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__["addToWishList"](product[id - 1]));
+    },
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 18,
+      columnNumber: 13
+    }
+  }, "Add To Wishlist"), __jsx("button", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
       columnNumber: 13
     }
   }, "View"), __jsx("button", {
@@ -295,7 +299,7 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 20,
       columnNumber: 13
     }
   }, "Add To Cart"));
@@ -318,7 +322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_productitem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/productitem */ "./components/productitem.js");
+/* harmony import */ var _productItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./productItem */ "./components/productItem.js");
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/products.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -327,16 +331,14 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 const Products = () => {
   const products = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.products.availableProducts);
-  const cart = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.cart.items);
-  console.log(cart);
   return __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
+      lineNumber: 8,
       columnNumber: 9
     }
-  }, products.map(item => __jsx(_components_productitem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, products.map(item => __jsx(_productItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: item.productId,
     id: item.productId,
     image: item.productImage,
@@ -346,7 +348,7 @@ const Products = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11,
+      lineNumber: 10,
       columnNumber: 38
     }
   })));
@@ -2108,6 +2110,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_products__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/products */ "./components/products.js");
 /* harmony import */ var _store_reducers_cart__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/reducers/cart */ "./store/reducers/cart.js");
 /* harmony import */ var _store_reducers_products__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/reducers/products */ "./store/reducers/products.js");
+/* harmony import */ var _store_reducers_wishlist__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/reducers/wishlist */ "./store/reducers/wishlist.js");
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/index.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -2119,9 +2122,11 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
 const rootReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
   cart: _store_reducers_cart__WEBPACK_IMPORTED_MODULE_7__["default"],
-  products: _store_reducers_products__WEBPACK_IMPORTED_MODULE_8__["default"]
+  products: _store_reducers_products__WEBPACK_IMPORTED_MODULE_8__["default"],
+  wishlist: _store_reducers_wishlist__WEBPACK_IMPORTED_MODULE_9__["default"]
 });
 const store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["configureStore"])({
   reducer: rootReducer
@@ -2133,42 +2138,42 @@ const Index = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24,
+      lineNumber: 26,
       columnNumber: 9
     }
   }, __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 25,
+      lineNumber: 27,
       columnNumber: 13
     }
   }, __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26,
+      lineNumber: 28,
       columnNumber: 17
     }
   }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27,
+      lineNumber: 29,
       columnNumber: 17
     }
   }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_5__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28,
+      lineNumber: 30,
       columnNumber: 17
     }
   }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_6__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 29,
+      lineNumber: 31,
       columnNumber: 17
     }
   })));
@@ -2213,6 +2218,25 @@ __webpack_require__.r(__webpack_exports__);
 
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
+
+/***/ }),
+
+/***/ "./store/actions/wishlist.js":
+/*!***********************************!*\
+  !*** ./store/actions/wishlist.js ***!
+  \***********************************/
+/*! exports provided: ADD_TO_WISHLIST, addToWishList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_WISHLIST", function() { return ADD_TO_WISHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToWishList", function() { return addToWishList; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
+
+const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+const addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_WISHLIST);
 
 /***/ }),
 
@@ -2316,11 +2340,56 @@ const initialState = {
   }]
 };
 const productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
-  [_actions_products__WEBPACK_IMPORTED_MODULE_0__["GET_ALL_PRODUCTS"]]: (state, action) => {
+  [_actions_products__WEBPACK_IMPORTED_MODULE_0__["GET_ALL_PRODUCTS"]]: state => {
     return _objectSpread({}, state);
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (productReducer);
+
+/***/ }),
+
+/***/ "./store/reducers/wishlist.js":
+/*!************************************!*\
+  !*** ./store/reducers/wishlist.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_wishlist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/wishlist */ "./store/actions/wishlist.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+const initialState = {
+  items: {}
+};
+const wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
+  [_actions_wishlist__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_WISHLIST"]]: (state, action) => {
+    const addedProduct = action.payload;
+    const productId = addedProduct.productId;
+    const productPrice = addedProduct.productPrice;
+    const productName = addedProduct.productName;
+    let wishListItem = {
+      productId,
+      productName,
+      productPrice
+    };
+    return _objectSpread({}, state, {
+      items: _objectSpread({}, state.items, {
+        [productId]: wishListItem
+      })
+    });
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = (wishlistReducer);
 
 /***/ }),
 

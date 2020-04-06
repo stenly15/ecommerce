@@ -9,10 +9,12 @@ import Products from '../components/products';
 
 import cartReducer from '../store/reducers/cart';
 import productReducer from '../store/reducers/products';
+import wishListReducer from '../store/reducers/wishlist';
 
 const rootReducer = combineReducers({
     cart: cartReducer,
-    products: productReducer
+    products: productReducer,
+    wishlist: wishListReducer
 });
 
 const store = configureStore({

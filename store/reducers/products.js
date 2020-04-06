@@ -30,8 +30,7 @@ const initialState = {
 };
 
 const productReducer = createReducer(initialState, {
-    [GET_ALL_PRODUCTS]: (state, action) => {
-
+    [GET_ALL_PRODUCTS]: state => {
         return {
             ...state
         };
