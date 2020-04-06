@@ -1,15 +1,24 @@
+import { useSelector } from 'react-redux';
+import ProductItem from '../components/productitem';
 
-const Products = ({ image, name, price, description }) => {
+const Products = () => {
+    const products = useSelector(state => state.products.availableProducts);
+    const cart = useSelector(state => state.cart.items);
+    console.log(cart);
     return (
         <div>
-            <img src={image} />
-            <h1>{name}</h1>
-            <h3>{price}</h3>
-            <p>{description}</p>
-            <button>Add To Wishlist</button>
-            <button>View</button>
-            <button>Add To Cart</button>
+            {
+                products.map(item => <ProductItem
+                    key={item.productId}
+                    id={item.productId}
+                    image={item.productImage}
+                    name={item.productName}
+                    price={item.productPrice}
+                    description={item.productDescription}
+                />)
+            }
         </div>
+
     )
 }
 

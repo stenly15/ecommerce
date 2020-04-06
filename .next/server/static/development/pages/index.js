@@ -209,6 +209,102 @@ const Layout = props => __jsx("div", {
 
 /***/ }),
 
+/***/ "./components/productitem.js":
+/*!***********************************!*\
+  !*** ./components/productitem.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
+var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/productitem.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const ProductItem = ({
+  id,
+  image,
+  name,
+  price,
+  description
+}) => {
+  const product = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.products.availableProducts);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  return __jsx("div", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12,
+      columnNumber: 9
+    }
+  }, __jsx("img", {
+    src: image,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13,
+      columnNumber: 13
+    }
+  }), __jsx("h1", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14,
+      columnNumber: 13
+    }
+  }, name), __jsx("h3", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15,
+      columnNumber: 13
+    }
+  }, price), __jsx("p", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 13
+    }
+  }, description), __jsx("button", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 13
+    }
+  }, "Add To Wishlist"), __jsx("button", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 13
+    }
+  }, "View"), __jsx("button", {
+    onClick: () => {
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_2__["addToCart"](product[id - 1]));
+    },
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, "Add To Cart"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ProductItem);
+
+/***/ }),
+
 /***/ "./components/products.js":
 /*!********************************!*\
   !*** ./components/products.js ***!
@@ -220,74 +316,40 @@ const Layout = props => __jsx("div", {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_productitem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/productitem */ "./components/productitem.js");
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/products.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
-const Products = ({
-  image,
-  name,
-  price,
-  description
-}) => {
+
+
+const Products = () => {
+  const products = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.products.availableProducts);
+  const cart = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.cart.items);
+  console.log(cart);
   return __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4,
+      lineNumber: 9,
       columnNumber: 9
     }
-  }, __jsx("img", {
-    src: image,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 5,
-      columnNumber: 13
-    }
-  }), __jsx("h1", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6,
-      columnNumber: 13
-    }
-  }, name), __jsx("h3", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7,
-      columnNumber: 13
-    }
-  }, price), __jsx("p", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 13
-    }
-  }, description), __jsx("button", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9,
-      columnNumber: 13
-    }
-  }, "Add To Wishlist"), __jsx("button", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 10,
-      columnNumber: 13
-    }
-  }, "View"), __jsx("button", {
+  }, products.map(item => __jsx(_components_productitem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    key: item.productId,
+    id: item.productId,
+    image: item.productImage,
+    name: item.productName,
+    price: item.productPrice,
+    description: item.productDescription,
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 11,
-      columnNumber: 13
+      columnNumber: 38
     }
-  }, "Add To Cart"));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Products);
@@ -2036,78 +2098,229 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
-/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/search */ "./components/search.js");
-/* harmony import */ var _components_products__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/products */ "./components/products.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
+/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/search */ "./components/search.js");
+/* harmony import */ var _components_products__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/products */ "./components/products.js");
+/* harmony import */ var _store_reducers_cart__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/reducers/cart */ "./store/reducers/cart.js");
+/* harmony import */ var _store_reducers_products__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/reducers/products */ "./store/reducers/products.js");
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/index.js";
-
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
 
+
+
+
+
+const rootReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
+  cart: _store_reducers_cart__WEBPACK_IMPORTED_MODULE_7__["default"],
+  products: _store_reducers_products__WEBPACK_IMPORTED_MODULE_8__["default"]
+});
+const store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["configureStore"])({
+  reducer: rootReducer
+});
+
 const Index = () => {
-  const products = [{
-    productName: 'Star Wars Home Arcade Game',
-    productPrice: 'Rp. 6749865',
-    productDescription: 'This gergeous, three-quarter-sized arcade cabinet comes loaded ' + 'with some classic Star Wars gaming titles, including A New Hope, ' + 'The Empire Strikes Back, and Return of the Jedi.',
-    productImage: 'img1.png'
-  }, {
-    productName: 'Poe\'s Boosted X-Wing Fighter',
-    productPrice: 'Rp. 6749865',
-    productDescription: 'For battling womp rats and tie fighters, and because you can\'t spell \"Poe Dameron\" without \"drone.\"',
-    productImage: 'img2.png'
-  }, {
-    productName: 'Star Wars\' Phone Cases',
-    productPrice: 'Rp. 6749865',
-    productDescription: 'If you want to show your love for the movie every day.',
-    productImage: 'img3.png'
-  }];
-  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return __jsx(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
+    store: store,
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 33,
+      lineNumber: 24,
       columnNumber: 9
+    }
+  }, __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25,
+      columnNumber: 13
     }
   }, __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 13
+      lineNumber: 26,
+      columnNumber: 17
     }
-  }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 35,
-      columnNumber: 13
+      lineNumber: 27,
+      columnNumber: 17
     }
-  }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_5__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 36,
-      columnNumber: 13
+      lineNumber: 28,
+      columnNumber: 17
     }
-  }), products.map(item => __jsx(_components_products__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    image: item.productImage,
-    name: item.productName,
-    price: item.productPrice,
-    description: item.productDescription,
+  }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_6__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 38,
-      columnNumber: 35
+      lineNumber: 29,
+      columnNumber: 17
     }
   })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
+
+/***/ }),
+
+/***/ "./store/actions/cart.js":
+/*!*******************************!*\
+  !*** ./store/actions/cart.js ***!
+  \*******************************/
+/*! exports provided: ADD_TO_CART, addToCart */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
+
+const ADD_TO_CART = 'ADD_TO_CART';
+const addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+
+/***/ }),
+
+/***/ "./store/actions/products.js":
+/*!***********************************!*\
+  !*** ./store/actions/products.js ***!
+  \***********************************/
+/*! exports provided: GET_ALL_PRODUCTS, getAllProducts */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_PRODUCTS", function() { return GET_ALL_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllProducts", function() { return getAllProducts; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
+
+const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+const getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
+
+/***/ }),
+
+/***/ "./store/reducers/cart.js":
+/*!********************************!*\
+  !*** ./store/reducers/cart.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_cart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+const initialState = {
+  items: {}
+};
+const cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
+  [_actions_cart__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_CART"]]: (state, action) => {
+    const addedProduct = action.payload;
+    const productId = addedProduct.productId;
+    const productPrice = addedProduct.productPrice;
+    const productName = addedProduct.productName;
+    let updatedOrNewCartItem;
+
+    if (state.items[productId]) {
+      updatedOrNewCartItem = {
+        productId,
+        productName,
+        productPrice,
+        quantity: state.items[productId].quantity + 1
+      };
+    } else {
+      updatedOrNewCartItem = {
+        productId,
+        productName,
+        productPrice,
+        quantity: 1
+      };
+    }
+
+    return _objectSpread({}, state, {
+      items: _objectSpread({}, state.items, {
+        [productId]: updatedOrNewCartItem
+      })
+    });
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = (cartReducer);
+
+/***/ }),
+
+/***/ "./store/reducers/products.js":
+/*!************************************!*\
+  !*** ./store/reducers/products.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_products__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/products */ "./store/actions/products.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+const initialState = {
+  availableProducts: [{
+    productId: '1',
+    productName: 'Star Wars Home Arcade Game',
+    productPrice: 'Rp. 6749865',
+    productDescription: 'This gergeous, three-quarter-sized arcade cabinet comes loaded ' + 'with some classic Star Wars gaming titles, including A New Hope, ' + 'The Empire Strikes Back, and Return of the Jedi.',
+    productImage: 'img1.png'
+  }, {
+    productId: '2',
+    productName: 'Poe\'s Boosted X-Wing Fighter',
+    productPrice: 'Rp. 6749865',
+    productDescription: 'For battling womp rats and tie fighters, and because you can\'t spell \"Poe Dameron\" without \"drone.\"',
+    productImage: 'img2.png'
+  }, {
+    productId: '3',
+    productName: 'Star Wars\' Phone Cases',
+    productPrice: 'Rp. 6749865',
+    productDescription: 'If you want to show your love for the movie every day.',
+    productImage: 'img3.png'
+  }]
+};
+const productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
+  [_actions_products__WEBPACK_IMPORTED_MODULE_0__["GET_ALL_PRODUCTS"]]: (state, action) => {
+    return _objectSpread({}, state);
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = (productReducer);
 
 /***/ }),
 
@@ -2120,6 +2333,17 @@ const Index = () => {
 
 module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/index.js */"./pages/index.js");
 
+
+/***/ }),
+
+/***/ "@reduxjs/toolkit":
+/*!***********************************!*\
+  !*** external "@reduxjs/toolkit" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@reduxjs/toolkit");
 
 /***/ }),
 
@@ -2164,6 +2388,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-is");
+
+/***/ }),
+
+/***/ "react-redux":
+/*!******************************!*\
+  !*** external "react-redux" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
 
 /***/ }),
 
