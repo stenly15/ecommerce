@@ -7,7 +7,7 @@ import * as cartActions from "../store/actions/cart";
 
 import CurrencyFormat from 'react-currency-format';
 
-const CartList = ({ id, image, name, price, quantity, sum }) => {
+const CartItem = ({ id, name, price, quantity, sum }) => {
     const dispatch = useDispatch();
 
     return (
@@ -45,10 +45,9 @@ const Cart = () => {
                 totalAmount === 0
                     ? <h2>Your Cart is Empty</h2>
                     : cartItems.map(item =>
-                        <CartList
+                        <CartItem
                             key={item.productId}
                             id={item.productId}
-                            image={item.productImage}
                             name={item.productName}
                             price={item.productPrice}
                             quantity={item.quantity}

@@ -8271,17 +8271,21 @@ var getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["creat
 /*!***********************************!*\
   !*** ./store/actions/wishlist.js ***!
   \***********************************/
-/*! exports provided: ADD_TO_WISHLIST, addToWishList */
+/*! exports provided: ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, addToWishList, removeFromWishList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_WISHLIST", function() { return ADD_TO_WISHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_WISHLIST", function() { return REMOVE_FROM_WISHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToWishList", function() { return addToWishList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromWishList", function() { return removeFromWishList; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 var ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+var REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
 var addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_WISHLIST);
+var removeFromWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_WISHLIST);
 
 /***/ }),
 
@@ -8452,6 +8456,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 
+var _createReducer;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -8461,7 +8467,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var initialState = {
   items: {}
 };
-var wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _actions_wishlist__WEBPACK_IMPORTED_MODULE_1__["ADD_TO_WISHLIST"], function (state, action) {
+var wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, (_createReducer = {}, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_wishlist__WEBPACK_IMPORTED_MODULE_1__["ADD_TO_WISHLIST"], function (state, action) {
   var _action$payload = action.payload,
       productId = _action$payload.productId,
       productName = _action$payload.productName,
@@ -8480,7 +8486,14 @@ var wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["crea
   return _objectSpread({}, state, {
     items: _objectSpread({}, state.items, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, productId, wishListItem))
   });
-}));
+}), Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_wishlist__WEBPACK_IMPORTED_MODULE_1__["REMOVE_FROM_WISHLIST"], function (state, action) {
+  var updatedWishListItems = _objectSpread({}, state.items);
+
+  delete updatedWishListItems[action.payload];
+  return _objectSpread({}, state, {
+    items: updatedWishListItems
+  });
+}), _createReducer));
 /* harmony default export */ __webpack_exports__["default"] = (wishlistReducer);
 
 /***/ }),

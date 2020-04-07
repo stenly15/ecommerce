@@ -1918,9 +1918,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const CartList = ({
+const CartItem = ({
   id,
-  image,
   name,
   price,
   quantity,
@@ -2035,10 +2034,9 @@ const Cart = () => {
       lineNumber: 46,
       columnNumber: 23
     }
-  }, "Your Cart is Empty") : cartItems.map(item => __jsx(CartList, {
+  }, "Your Cart is Empty") : cartItems.map(item => __jsx(CartItem, {
     key: item.productId,
     id: item.productId,
-    image: item.productImage,
     name: item.productName,
     price: item.productPrice,
     quantity: item.quantity,
@@ -2053,7 +2051,7 @@ const Cart = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61,
+      lineNumber: 60,
       columnNumber: 17
     }
   }, "Grand Total: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -2064,7 +2062,7 @@ const Cart = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61,
+      lineNumber: 60,
       columnNumber: 34
     }
   }), " "));

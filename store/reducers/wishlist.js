@@ -1,4 +1,4 @@
-import { ADD_TO_WISHLIST } from "../actions/wishlist";
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } from "../actions/wishlist";
 import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -28,6 +28,16 @@ const wishlistReducer = createReducer(initialState, {
         return {
             ...state,
             items: { ...state.items, [productId]: wishListItem },
+        };
+    },
+    [REMOVE_FROM_WISHLIST]: (state, action) => {
+
+        let updatedWishListItems = { ...state.items };
+        delete updatedWishListItems[action.payload];
+
+        return {
+            ...state,
+            items: updatedWishListItems,
         };
     }
 })

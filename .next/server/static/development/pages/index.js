@@ -2254,18 +2254,22 @@ const removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["cre
 /*!***********************************!*\
   !*** ./store/actions/wishlist.js ***!
   \***********************************/
-/*! exports provided: ADD_TO_WISHLIST, addToWishList */
+/*! exports provided: ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, addToWishList, removeFromWishList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_WISHLIST", function() { return ADD_TO_WISHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_WISHLIST", function() { return REMOVE_FROM_WISHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToWishList", function() { return addToWishList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromWishList", function() { return removeFromWishList; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
 
 const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
 const addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_WISHLIST);
+const removeFromWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_WISHLIST);
 
 /***/ }),
 
