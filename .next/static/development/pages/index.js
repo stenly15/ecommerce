@@ -9162,35 +9162,35 @@ var Index = function Index() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10,
+      lineNumber: 8,
       columnNumber: 9
     }
   }, __jsx("h1", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11,
+      lineNumber: 9,
       columnNumber: 13
     }
   }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12,
+      lineNumber: 10,
       columnNumber: 13
     }
   }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13,
+      lineNumber: 11,
       columnNumber: 13
     }
   }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_4__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14,
+      lineNumber: 12,
       columnNumber: 13
     }
   }));

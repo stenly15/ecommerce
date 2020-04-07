@@ -11,11 +11,15 @@ const wishlistReducer = createReducer(initialState, {
         const productId = addedProduct.productId;
         const productPrice = addedProduct.productPrice;
         const productName = addedProduct.productName;
+        const productDescription = addedProduct.productDescription;
+        const productImage = addedProduct.productImage;
 
         let wishListItem = {
             productId,
             productName,
-            productPrice
+            productPrice,
+            productDescription,
+            productImage
         }
 
         return {

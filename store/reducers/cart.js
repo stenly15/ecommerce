@@ -12,6 +12,8 @@ const cartReducer = createReducer(initialState, {
         const productId = addedProduct.productId;
         const productPrice = addedProduct.productPrice;
         const productName = addedProduct.productName;
+        const productDescription = addedProduct.productDescription;
+        const productImage = addedProduct.productImage;
 
         let updatedOrNewCartItem;
 
@@ -20,6 +22,8 @@ const cartReducer = createReducer(initialState, {
                 productId,
                 productName,
                 productPrice,
+                productDescription,
+                productImage,
                 quantity: state.items[productId].quantity + 1
             }
         } else {
@@ -27,6 +31,8 @@ const cartReducer = createReducer(initialState, {
                 productId,
                 productName,
                 productPrice,
+                productDescription,
+                productImage,
                 quantity: 1
             }
         }

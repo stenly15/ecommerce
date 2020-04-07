@@ -1,4 +1,4 @@
-import App from 'next/app';
+// import App from 'next/app';
 import React from "react";
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { Provider } from "react-redux";
