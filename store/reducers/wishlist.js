@@ -7,19 +7,22 @@ const initialState = {
 
 const wishlistReducer = createReducer(initialState, {
     [ADD_TO_WISHLIST]: (state, action) => {
-        const addedProduct = action.payload;
-        const productId = addedProduct.productId;
-        const productPrice = addedProduct.productPrice;
-        const productName = addedProduct.productName;
-        const productDescription = addedProduct.productDescription;
-        const productImage = addedProduct.productImage;
+        const {
+            productId,
+            productName,
+            productPrice,
+            productDescription,
+            productImage,
+            productCategory
+        } = action.payload;
 
         let wishListItem = {
             productId,
             productName,
             productPrice,
             productDescription,
-            productImage
+            productImage,
+            productCategory
         }
 
         return {

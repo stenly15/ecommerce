@@ -597,6 +597,1463 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js ***!
+  \*****************************************************************/
+/*! exports provided: createNextState, __DO_NOT_USE__ActionTypes, applyMiddleware, bindActionCreators, combineReducers, compose, createStore, createSelector, configureStore, createAction, createAsyncThunk, createEntityAdapter, createImmutableStateInvariantMiddleware, createReducer, createSerializableStateInvariantMiddleware, createSlice, findNonSerializableValue, getDefaultMiddleware, getType, isImmutableDefault, isPlain, nanoid, unwrapResult */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configureStore", function() { return configureStore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAction", function() { return createAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAsyncThunk", function() { return createAsyncThunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEntityAdapter", function() { return createEntityAdapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createImmutableStateInvariantMiddleware", function() { return createImmutableStateInvariantMiddleware; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createReducer", function() { return createReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSerializableStateInvariantMiddleware", function() { return createSerializableStateInvariantMiddleware; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSlice", function() { return createSlice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findNonSerializableValue", function() { return findNonSerializableValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDefaultMiddleware", function() { return getDefaultMiddleware; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getType", function() { return getType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isImmutableDefault", function() { return isImmutableDefault; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlain", function() { return isPlain; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nanoid", function() { return nanoid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unwrapResult", function() { return unwrapResult; });
+/* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immer */ "./node_modules/immer/dist/immer.esm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createNextState", function() { return immer__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "__DO_NOT_USE__ActionTypes", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["__DO_NOT_USE__ActionTypes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["bindActionCreators"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["compose"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return redux__WEBPACK_IMPORTED_MODULE_1__["createStore"]; });
+
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/es/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createSelector", function() { return reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"]; });
+
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+
+
+
+
+
+
+
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+/**
+ * @public
+ */
+
+var composeWithDevTools = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function () {
+  if (arguments.length === 0) return undefined;
+  if (typeof arguments[0] === 'object') return redux__WEBPACK_IMPORTED_MODULE_1__["compose"];
+  return redux__WEBPACK_IMPORTED_MODULE_1__["compose"].apply(null, arguments);
+};
+
+/**
+ * Returns true if the passed value is "plain" object, i.e. an object whose
+ * protoype is the root `Object.prototype`. This includes objects created
+ * using object literals, but not for instance for class instances.
+ *
+ * @param {any} value The value to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+function isPlainObject(value) {
+  if (typeof value !== 'object' || value === null) return false;
+  var proto = value;
+
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return Object.getPrototypeOf(value) === proto;
+}
+
+function getTimeMeasureUtils(maxDelay, fnName) {
+  var elapsed = 0;
+  return {
+    measureTime: function measureTime(fn) {
+      var started = Date.now();
+
+      try {
+        return fn();
+      } finally {
+        var finished = Date.now();
+        elapsed += finished - started;
+      }
+    },
+    warnIfExceeded: function warnIfExceeded() {
+      if (elapsed > maxDelay) {
+        console.warn(fnName + " took " + elapsed + "ms, which is more than the warning threshold of " + maxDelay + "ms. \nIf your state or actions are very large, you may want to disable the middleware as it might cause too much of a slowdown in development mode. See https://redux-toolkit.js.org/api/getDefaultMiddleware for instructions.\nIt is disabled in production builds, so you don't need to worry about that.");
+      }
+    }
+  };
+}
+
+var isProduction = "development" === 'production';
+var prefix = 'Invariant failed'; // Throw an error if the condition fails
+// Strip out error messages for production
+// > Not providing an inline default argument for message as the result is smaller
+
+function invariant(condition, message) {
+  if (condition) {
+    return;
+  } // Condition not passed
+  // In production we strip the message but still throw
+
+
+  if (isProduction) {
+    throw new Error(prefix);
+  } // When not in production we allow the message to pass through
+  // *This block will be removed in production builds*
+
+
+  throw new Error(prefix + ": " + (message || ''));
+}
+
+function stringify(obj, serializer, indent, decycler) {
+  return JSON.stringify(obj, getSerialize(serializer, decycler), indent);
+}
+
+function getSerialize(serializer, decycler) {
+  var stack = [],
+      keys = [];
+  if (!decycler) decycler = function decycler(_, value) {
+    if (stack[0] === value) return '[Circular ~]';
+    return '[Circular ~.' + keys.slice(0, stack.indexOf(value)).join('.') + ']';
+  };
+  return function (key, value) {
+    if (stack.length > 0) {
+      var thisPos = stack.indexOf(this);
+      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this);
+      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key);
+      if (~stack.indexOf(value)) value = decycler.call(this, key, value);
+    } else stack.push(value);
+
+    return serializer == null ? value : serializer.call(this, key, value);
+  };
+}
+/**
+ * The default `isImmutable` function.
+ *
+ * @public
+ */
+
+
+function isImmutableDefault(value) {
+  return typeof value !== 'object' || value === null || typeof value === 'undefined';
+}
+function trackForMutations(isImmutable, ignorePaths, obj) {
+  var trackedProperties = trackProperties(isImmutable, ignorePaths, obj);
+  return {
+    detectMutations: function detectMutations() {
+      return _detectMutations(isImmutable, ignorePaths, trackedProperties, obj);
+    }
+  };
+}
+
+function trackProperties(isImmutable, ignorePaths, obj, path) {
+  if (ignorePaths === void 0) {
+    ignorePaths = [];
+  }
+
+  if (path === void 0) {
+    path = [];
+  }
+
+  var tracked = {
+    value: obj
+  };
+
+  if (!isImmutable(obj)) {
+    tracked.children = {};
+
+    for (var key in obj) {
+      var childPath = path.concat(key);
+
+      if (ignorePaths.length && ignorePaths.indexOf(childPath.join('.')) !== -1) {
+        continue;
+      }
+
+      tracked.children[key] = trackProperties(isImmutable, ignorePaths, obj[key], childPath);
+    }
+  }
+
+  return tracked;
+}
+
+function _detectMutations(isImmutable, ignorePaths, trackedProperty, obj, sameParentRef, path) {
+  if (ignorePaths === void 0) {
+    ignorePaths = [];
+  }
+
+  if (sameParentRef === void 0) {
+    sameParentRef = false;
+  }
+
+  if (path === void 0) {
+    path = [];
+  }
+
+  var prevObj = trackedProperty ? trackedProperty.value : undefined;
+  var sameRef = prevObj === obj;
+
+  if (sameParentRef && !sameRef && !Number.isNaN(obj)) {
+    return {
+      wasMutated: true,
+      path: path
+    };
+  }
+
+  if (isImmutable(prevObj) || isImmutable(obj)) {
+    return {
+      wasMutated: false
+    };
+  } // Gather all keys from prev (tracked) and after objs
+
+
+  var keysToDetect = {};
+  Object.keys(trackedProperty.children).forEach(function (key) {
+    keysToDetect[key] = true;
+  });
+  Object.keys(obj).forEach(function (key) {
+    keysToDetect[key] = true;
+  });
+  var keys = Object.keys(keysToDetect);
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var childPath = path.concat(key);
+
+    if (ignorePaths.length && ignorePaths.indexOf(childPath.join('.')) !== -1) {
+      continue;
+    }
+
+    var result = _detectMutations(isImmutable, ignorePaths, trackedProperty.children[key], obj[key], sameRef, childPath);
+
+    if (result.wasMutated) {
+      return result;
+    }
+  }
+
+  return {
+    wasMutated: false
+  };
+}
+/**
+ * Creates a middleware that checks whether any state was mutated in between
+ * dispatches or during a dispatch. If any mutations are detected, an error is
+ * thrown.
+ *
+ * @param options Middleware options.
+ *
+ * @public
+ */
+
+
+function createImmutableStateInvariantMiddleware(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  if (false) {}
+
+  var _options = options,
+      _options$isImmutable = _options.isImmutable,
+      isImmutable = _options$isImmutable === void 0 ? isImmutableDefault : _options$isImmutable,
+      ignoredPaths = _options.ignoredPaths,
+      _options$warnAfter = _options.warnAfter,
+      warnAfter = _options$warnAfter === void 0 ? 32 : _options$warnAfter;
+  var track = trackForMutations.bind(null, isImmutable, ignoredPaths);
+  return function (_ref) {
+    var getState = _ref.getState;
+    var state = getState();
+    var tracker = track(state);
+    var result;
+    return function (next) {
+      return function (action) {
+        var measureUtils = getTimeMeasureUtils(warnAfter, 'ImmutableStateInvariantMiddleware');
+        measureUtils.measureTime(function () {
+          state = getState();
+          result = tracker.detectMutations(); // Track before potentially not meeting the invariant
+
+          tracker = track(state);
+          !!result.wasMutated ?  true ? invariant(false, "A state mutation was detected between dispatches, in the path '" + (result.path || []).join('.') + "'.  This may cause incorrect behavior. (http://redux.js.org/docs/Troubleshooting.html#never-mutate-reducer-arguments)") : undefined : void 0;
+        });
+        var dispatchedAction = next(action);
+        measureUtils.measureTime(function () {
+          state = getState();
+          result = tracker.detectMutations(); // Track before potentially not meeting the invariant
+
+          tracker = track(state);
+          result.wasMutated && (!!result.wasMutated ?  true ? invariant(false, "A state mutation was detected inside a dispatch, in the path: " + (result.path || []).join('.') + ". Take a look at the reducer(s) handling the action " + stringify(action) + ". (http://redux.js.org/docs/Troubleshooting.html#never-mutate-reducer-arguments)") : undefined : void 0);
+        });
+        measureUtils.warnIfExceeded();
+        return dispatchedAction;
+      };
+    };
+  };
+}
+
+/**
+ * Returns true if the passed value is "plain", i.e. a value that is either
+ * directly JSON-serializable (boolean, number, string, array, plain object)
+ * or `undefined`.
+ *
+ * @param val The value to check.
+ *
+ * @public
+ */
+
+function isPlain(val) {
+  return typeof val === 'undefined' || val === null || typeof val === 'string' || typeof val === 'boolean' || typeof val === 'number' || Array.isArray(val) || isPlainObject(val);
+}
+/**
+ * @public
+ */
+
+function findNonSerializableValue(value, path, isSerializable, getEntries, ignoredPaths) {
+  if (path === void 0) {
+    path = [];
+  }
+
+  if (isSerializable === void 0) {
+    isSerializable = isPlain;
+  }
+
+  if (ignoredPaths === void 0) {
+    ignoredPaths = [];
+  }
+
+  var foundNestedSerializable;
+
+  if (!isSerializable(value)) {
+    return {
+      keyPath: path.join('.') || '<root>',
+      value: value
+    };
+  }
+
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+
+  var entries = getEntries != null ? getEntries(value) : Object.entries(value);
+  var hasIgnoredPaths = ignoredPaths.length > 0;
+
+  for (var _iterator = entries, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+    var _ref;
+
+    if (_isArray) {
+      if (_i >= _iterator.length) break;
+      _ref = _iterator[_i++];
+    } else {
+      _i = _iterator.next();
+      if (_i.done) break;
+      _ref = _i.value;
+    }
+
+    var _ref2 = _ref,
+        property = _ref2[0],
+        nestedValue = _ref2[1];
+    var nestedPath = path.concat(property);
+
+    if (hasIgnoredPaths && ignoredPaths.indexOf(nestedPath.join('.')) >= 0) {
+      continue;
+    }
+
+    if (!isSerializable(nestedValue)) {
+      return {
+        keyPath: nestedPath.join('.'),
+        value: nestedValue
+      };
+    }
+
+    if (typeof nestedValue === 'object') {
+      foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths);
+
+      if (foundNestedSerializable) {
+        return foundNestedSerializable;
+      }
+    }
+  }
+
+  return false;
+}
+/**
+ * Creates a middleware that, after every state change, checks if the new
+ * state is serializable. If a non-serializable value is found within the
+ * state, an error is printed to the console.
+ *
+ * @param options Middleware options.
+ *
+ * @public
+ */
+
+function createSerializableStateInvariantMiddleware(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  if (false) {}
+
+  var _options = options,
+      _options$isSerializab = _options.isSerializable,
+      isSerializable = _options$isSerializab === void 0 ? isPlain : _options$isSerializab,
+      getEntries = _options.getEntries,
+      _options$ignoredActio = _options.ignoredActions,
+      ignoredActions = _options$ignoredActio === void 0 ? [] : _options$ignoredActio,
+      _options$ignoredActio2 = _options.ignoredActionPaths,
+      ignoredActionPaths = _options$ignoredActio2 === void 0 ? ['meta.arg'] : _options$ignoredActio2,
+      _options$ignoredPaths = _options.ignoredPaths,
+      ignoredPaths = _options$ignoredPaths === void 0 ? [] : _options$ignoredPaths,
+      _options$warnAfter = _options.warnAfter,
+      warnAfter = _options$warnAfter === void 0 ? 32 : _options$warnAfter;
+  return function (storeAPI) {
+    return function (next) {
+      return function (action) {
+        if (ignoredActions.length && ignoredActions.indexOf(action.type) !== -1) {
+          return next(action);
+        }
+
+        var measureUtils = getTimeMeasureUtils(warnAfter, 'SerializableStateInvariantMiddleware');
+        measureUtils.measureTime(function () {
+          var foundActionNonSerializableValue = findNonSerializableValue(action, [], isSerializable, getEntries, ignoredActionPaths);
+
+          if (foundActionNonSerializableValue) {
+            var keyPath = foundActionNonSerializableValue.keyPath,
+                value = foundActionNonSerializableValue.value;
+            console.error("A non-serializable value was detected in an action, in the path: `" + keyPath + "`. Value:", value, '\nTake a look at the logic that dispatched this action: ', action, '\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)');
+          }
+        });
+        var result = next(action);
+        measureUtils.measureTime(function () {
+          var state = storeAPI.getState();
+          var foundStateNonSerializableValue = findNonSerializableValue(state, [], isSerializable, getEntries, ignoredPaths);
+
+          if (foundStateNonSerializableValue) {
+            var keyPath = foundStateNonSerializableValue.keyPath,
+                value = foundStateNonSerializableValue.value;
+            console.error("A non-serializable value was detected in the state, in the path: `" + keyPath + "`. Value:", value, "\nTake a look at the reducer(s) handling this action type: " + action.type + ".\n(See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)");
+          }
+        });
+        measureUtils.warnIfExceeded();
+        return result;
+      };
+    };
+  };
+}
+
+function isBoolean(x) {
+  return typeof x === 'boolean';
+}
+/**
+ * Returns any array containing the default middleware installed by
+ * `configureStore()`. Useful if you want to configure your store with a custom
+ * `middleware` array but still keep the default set.
+ *
+ * @return The default middleware used by `configureStore()`.
+ *
+ * @public
+ */
+
+
+function getDefaultMiddleware(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      _options$thunk = _options.thunk,
+      thunk = _options$thunk === void 0 ? true : _options$thunk,
+      _options$immutableChe = _options.immutableCheck,
+      immutableCheck = _options$immutableChe === void 0 ? true : _options$immutableChe,
+      _options$serializable = _options.serializableCheck,
+      serializableCheck = _options$serializable === void 0 ? true : _options$serializable;
+  var middlewareArray = [];
+
+  if (thunk) {
+    if (isBoolean(thunk)) {
+      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    } else {
+      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"].withExtraArgument(thunk.extraArgument));
+    }
+  }
+
+  if (true) {
+    if (immutableCheck) {
+      /* PROD_START_REMOVE_UMD */
+      var immutableOptions = {};
+
+      if (!isBoolean(immutableCheck)) {
+        immutableOptions = immutableCheck;
+      }
+
+      middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
+      /* PROD_STOP_REMOVE_UMD */
+    }
+
+    if (serializableCheck) {
+      var serializableOptions = {};
+
+      if (!isBoolean(serializableCheck)) {
+        serializableOptions = serializableCheck;
+      }
+
+      middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
+    }
+  }
+
+  return middlewareArray;
+}
+
+var IS_PRODUCTION = "development" === 'production';
+/**
+ * A friendly abstraction over the standard Redux `createStore()` function.
+ *
+ * @param config The store configuration.
+ * @returns A configured Redux store.
+ *
+ * @public
+ */
+
+function configureStore(options) {
+  var _ref = options || {},
+      _ref$reducer = _ref.reducer,
+      reducer = _ref$reducer === void 0 ? undefined : _ref$reducer,
+      _ref$middleware = _ref.middleware,
+      middleware = _ref$middleware === void 0 ? getDefaultMiddleware() : _ref$middleware,
+      _ref$devTools = _ref.devTools,
+      devTools = _ref$devTools === void 0 ? true : _ref$devTools,
+      _ref$preloadedState = _ref.preloadedState,
+      preloadedState = _ref$preloadedState === void 0 ? undefined : _ref$preloadedState,
+      _ref$enhancers = _ref.enhancers,
+      enhancers = _ref$enhancers === void 0 ? undefined : _ref$enhancers;
+
+  var rootReducer;
+
+  if (typeof reducer === 'function') {
+    rootReducer = reducer;
+  } else if (isPlainObject(reducer)) {
+    rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])(reducer);
+  } else {
+    throw new Error('"reducer" is a required argument, and must be a function or an object of functions that can be passed to combineReducers');
+  }
+
+  var middlewareEnhancer = redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"].apply(void 0, middleware);
+  var finalCompose = redux__WEBPACK_IMPORTED_MODULE_1__["compose"];
+
+  if (devTools) {
+    finalCompose = composeWithDevTools(_extends({
+      // Enable capture of stack traces for dispatched Redux actions
+      trace: !IS_PRODUCTION
+    }, typeof devTools === 'object' && devTools));
+  }
+
+  var storeEnhancers = [middlewareEnhancer];
+
+  if (Array.isArray(enhancers)) {
+    storeEnhancers = [middlewareEnhancer].concat(enhancers);
+  } else if (typeof enhancers === 'function') {
+    storeEnhancers = enhancers(storeEnhancers);
+  }
+
+  var composedEnhancer = finalCompose.apply(void 0, storeEnhancers);
+  return Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(rootReducer, preloadedState, composedEnhancer);
+}
+
+function createAction(type, prepareAction) {
+  function actionCreator() {
+    if (prepareAction) {
+      var prepared = prepareAction.apply(void 0, arguments);
+
+      if (!prepared) {
+        throw new Error('prepareAction did not return an object');
+      }
+
+      return _extends({
+        type: type,
+        payload: prepared.payload
+      }, 'meta' in prepared && {
+        meta: prepared.meta
+      }, {}, 'error' in prepared && {
+        error: prepared.error
+      });
+    }
+
+    return {
+      type: type,
+      payload: arguments.length <= 0 ? undefined : arguments[0]
+    };
+  }
+
+  actionCreator.toString = function () {
+    return "" + type;
+  };
+
+  actionCreator.type = type;
+
+  actionCreator.match = function (action) {
+    return action.type === type;
+  };
+
+  return actionCreator;
+}
+function isFSA(action) {
+  return isPlainObject(action) && typeof action.type === 'string' && Object.keys(action).every(isValidKey);
+}
+
+function isValidKey(key) {
+  return ['type', 'payload', 'error', 'meta'].indexOf(key) > -1;
+}
+/**
+ * Returns the action type of the actions created by the passed
+ * `createAction()`-generated action creator (arbitrary action creators
+ * are not supported).
+ *
+ * @param action The action creator whose action type to get.
+ * @returns The action type used by the action creator.
+ *
+ * @public
+ */
+
+
+function getType(actionCreator) {
+  return "" + actionCreator;
+}
+
+function executeReducerBuilderCallback(builderCallback) {
+  var actionsMap = {};
+  var builder = {
+    addCase: function addCase(typeOrActionCreator, reducer) {
+      var type = typeof typeOrActionCreator === 'string' ? typeOrActionCreator : typeOrActionCreator.type;
+
+      if (type in actionsMap) {
+        throw new Error('addCase cannot be called with two reducers for the same action type');
+      }
+
+      actionsMap[type] = reducer;
+      return builder;
+    }
+  };
+  builderCallback(builder);
+  return actionsMap;
+}
+
+function createReducer(initialState, mapOrBuilderCallback) {
+  var actionsMap = typeof mapOrBuilderCallback === 'function' ? executeReducerBuilderCallback(mapOrBuilderCallback) : mapOrBuilderCallback;
+  return function (state, action) {
+    if (state === void 0) {
+      state = initialState;
+    }
+
+    // @ts-ignore createNextState() produces an Immutable<Draft<S>> rather
+    // than an Immutable<S>, and TypeScript cannot find out how to reconcile
+    // these two types.
+    return Object(immer__WEBPACK_IMPORTED_MODULE_0__["default"])(state, function (draft) {
+      var caseReducer = actionsMap[action.type];
+      return caseReducer ? caseReducer(draft, action) : undefined;
+    });
+  };
+}
+
+function getType$1(slice, actionKey) {
+  return slice + "/" + actionKey;
+}
+/**
+ * A function that accepts an initial state, an object full of reducer
+ * functions, and a "slice name", and automatically generates
+ * action creators and action types that correspond to the
+ * reducers and state.
+ *
+ * The `reducer` argument is passed to `createReducer()`.
+ *
+ * @public
+ */
+
+
+function createSlice(options) {
+  var name = options.name,
+      initialState = options.initialState;
+
+  if (!name) {
+    throw new Error('`name` is a required option for createSlice');
+  }
+
+  var reducers = options.reducers || {};
+  var extraReducers = typeof options.extraReducers === 'undefined' ? {} : typeof options.extraReducers === 'function' ? executeReducerBuilderCallback(options.extraReducers) : options.extraReducers;
+  var reducerNames = Object.keys(reducers);
+  var sliceCaseReducersByName = {};
+  var sliceCaseReducersByType = {};
+  var actionCreators = {};
+  reducerNames.forEach(function (reducerName) {
+    var maybeReducerWithPrepare = reducers[reducerName];
+    var type = getType$1(name, reducerName);
+    var caseReducer;
+    var prepareCallback;
+
+    if ('reducer' in maybeReducerWithPrepare) {
+      caseReducer = maybeReducerWithPrepare.reducer;
+      prepareCallback = maybeReducerWithPrepare.prepare;
+    } else {
+      caseReducer = maybeReducerWithPrepare;
+    }
+
+    sliceCaseReducersByName[reducerName] = caseReducer;
+    sliceCaseReducersByType[type] = caseReducer;
+    actionCreators[reducerName] = prepareCallback ? createAction(type, prepareCallback) : createAction(type);
+  });
+
+  var finalCaseReducers = _extends({}, extraReducers, {}, sliceCaseReducersByType);
+
+  var reducer = createReducer(initialState, finalCaseReducers);
+  return {
+    name: name,
+    reducer: reducer,
+    actions: actionCreators,
+    caseReducers: sliceCaseReducersByName
+  };
+}
+
+function getInitialEntityState() {
+  return {
+    ids: [],
+    entities: {}
+  };
+}
+function createInitialStateFactory() {
+  function getInitialState(additionalState) {
+    if (additionalState === void 0) {
+      additionalState = {};
+    }
+
+    return Object.assign(getInitialEntityState(), additionalState);
+  }
+
+  return {
+    getInitialState: getInitialState
+  };
+}
+
+function createSelectorsFactory() {
+  function getSelectors(selectState) {
+    var selectIds = function selectIds(state) {
+      return state.ids;
+    };
+
+    var selectEntities = function selectEntities(state) {
+      return state.entities;
+    };
+
+    var selectAll = Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectIds, selectEntities, function (ids, entities) {
+      return ids.map(function (id) {
+        return entities[id];
+      });
+    });
+
+    var selectId = function selectId(_, id) {
+      return id;
+    };
+
+    var selectById = function selectById(entities, id) {
+      return entities[id];
+    };
+
+    var selectTotal = Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectIds, function (ids) {
+      return ids.length;
+    });
+
+    if (!selectState) {
+      return {
+        selectIds: selectIds,
+        selectEntities: selectEntities,
+        selectAll: selectAll,
+        selectTotal: selectTotal,
+        selectById: Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectEntities, selectId, selectById)
+      };
+    }
+
+    var selectGlobalizedEntities = Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectState, selectEntities);
+    return {
+      selectIds: Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectState, selectIds),
+      selectEntities: selectGlobalizedEntities,
+      selectAll: Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectState, selectAll),
+      selectTotal: Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectState, selectTotal),
+      selectById: Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createSelector"])(selectGlobalizedEntities, selectId, selectById)
+    };
+  }
+
+  return {
+    getSelectors: getSelectors
+  };
+}
+
+function createStateOperator(mutator) {
+  return function operation(state, arg) {
+    function isPayloadActionArgument(arg) {
+      return isFSA(arg);
+    }
+
+    var runMutator = function runMutator(draft) {
+      if (isPayloadActionArgument(arg)) {
+        mutator(arg.payload, draft);
+      } else {
+        mutator(arg, draft);
+      }
+    };
+
+    if (Object(immer__WEBPACK_IMPORTED_MODULE_0__["isDraft"])(state)) {
+      // we must already be inside a `createNextState` call, likely because
+      // this is being wrapped in `createReducer` or `createSlice`.
+      // It's safe to just pass the draft to the mutator.
+      runMutator(state); // since it's a draft, we'll just return it
+
+      return state;
+    } else {
+      // @ts-ignore createNextState() produces an Immutable<Draft<S>> rather
+      // than an Immutable<S>, and TypeScript cannot find out how to reconcile
+      // these two types.
+      return Object(immer__WEBPACK_IMPORTED_MODULE_0__["default"])(state, runMutator);
+    }
+  };
+}
+
+function selectIdValue(entity, selectId) {
+  var key = selectId(entity);
+
+  if ( true && key === undefined) {
+    console.warn('The entity passed to the `selectId` implementation returned undefined.', 'You should probably provide your own `selectId` implementation.', 'The entity that was passed:', entity, 'The `selectId` implementation:', selectId.toString());
+  }
+
+  return key;
+}
+
+function createUnsortedStateAdapter(selectId) {
+  function addOneMutably(entity, state) {
+    var key = selectIdValue(entity, selectId);
+
+    if (key in state.entities) {
+      return;
+    }
+
+    state.ids.push(key);
+    state.entities[key] = entity;
+  }
+
+  function addManyMutably(entities, state) {
+    if (!Array.isArray(entities)) {
+      entities = Object.values(entities);
+    }
+
+    for (var _iterator = entities, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var entity = _ref;
+      addOneMutably(entity, state);
+    }
+  }
+
+  function setAllMutably(entities, state) {
+    if (!Array.isArray(entities)) {
+      entities = Object.values(entities);
+    }
+
+    state.ids = [];
+    state.entities = {};
+    addManyMutably(entities, state);
+  }
+
+  function removeOneMutably(key, state) {
+    return removeManyMutably([key], state);
+  }
+
+  function removeManyMutably(keys, state) {
+    var didMutate = false;
+    keys.forEach(function (key) {
+      if (key in state.entities) {
+        delete state.entities[key];
+        didMutate = true;
+      }
+    });
+
+    if (didMutate) {
+      state.ids = state.ids.filter(function (id) {
+        return id in state.entities;
+      });
+    }
+  }
+
+  function removeAll(state) {
+    return Object.assign({}, state, {
+      ids: [],
+      entities: {}
+    });
+  }
+
+  function takeNewKey(keys, update, state) {
+    var original = state.entities[update.id];
+    var updated = Object.assign({}, original, update.changes);
+    var newKey = selectIdValue(updated, selectId);
+    var hasNewKey = newKey !== update.id;
+
+    if (hasNewKey) {
+      keys[update.id] = newKey;
+      delete state.entities[update.id];
+    }
+
+    state.entities[newKey] = updated;
+    return hasNewKey;
+  }
+
+  function updateOneMutably(update, state) {
+    return updateManyMutably([update], state);
+  }
+
+  function updateManyMutably(updates, state) {
+    var newKeys = {};
+    var updatesPerEntity = {};
+    updates.forEach(function (update) {
+      // Only apply updates to entities that currently exist
+      if (update.id in state.entities) {
+        // If there are multiple updates to one entity, merge them together
+        updatesPerEntity[update.id] = _extends({}, updatesPerEntity[update.id], {}, update);
+      }
+    });
+    updates = Object.values(updatesPerEntity);
+    var didMutateEntities = updates.length > 0;
+
+    if (didMutateEntities) {
+      var didMutateIds = updates.filter(function (update) {
+        return takeNewKey(newKeys, update, state);
+      }).length > 0;
+
+      if (didMutateIds) {
+        state.ids = state.ids.map(function (id) {
+          return newKeys[id] || id;
+        });
+      }
+    }
+  }
+
+  function upsertOneMutably(entity, state) {
+    return upsertManyMutably([entity], state);
+  }
+
+  function upsertManyMutably(entities, state) {
+    if (!Array.isArray(entities)) {
+      entities = Object.values(entities);
+    }
+
+    var added = [];
+    var updated = [];
+
+    for (var _iterator2 = entities, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+      var _ref2;
+
+      if (_isArray2) {
+        if (_i2 >= _iterator2.length) break;
+        _ref2 = _iterator2[_i2++];
+      } else {
+        _i2 = _iterator2.next();
+        if (_i2.done) break;
+        _ref2 = _i2.value;
+      }
+
+      var entity = _ref2;
+      var id = selectIdValue(entity, selectId);
+
+      if (id in state.entities) {
+        updated.push({
+          id: id,
+          changes: entity
+        });
+      } else {
+        added.push(entity);
+      }
+    }
+
+    updateManyMutably(updated, state);
+    addManyMutably(added, state);
+  }
+
+  return {
+    removeAll: removeAll,
+    addOne: createStateOperator(addOneMutably),
+    addMany: createStateOperator(addManyMutably),
+    setAll: createStateOperator(setAllMutably),
+    updateOne: createStateOperator(updateOneMutably),
+    updateMany: createStateOperator(updateManyMutably),
+    upsertOne: createStateOperator(upsertOneMutably),
+    upsertMany: createStateOperator(upsertManyMutably),
+    removeOne: createStateOperator(removeOneMutably),
+    removeMany: createStateOperator(removeManyMutably)
+  };
+}
+
+function createSortedStateAdapter(selectId, sort) {
+  var _createUnsortedStateA = createUnsortedStateAdapter(selectId),
+      removeOne = _createUnsortedStateA.removeOne,
+      removeMany = _createUnsortedStateA.removeMany,
+      removeAll = _createUnsortedStateA.removeAll;
+
+  function addOneMutably(entity, state) {
+    return addManyMutably([entity], state);
+  }
+
+  function addManyMutably(newModels, state) {
+    if (!Array.isArray(newModels)) {
+      newModels = Object.values(newModels);
+    }
+
+    var models = newModels.filter(function (model) {
+      return !(selectIdValue(model, selectId) in state.entities);
+    });
+
+    if (models.length !== 0) {
+      merge(models, state);
+    }
+  }
+
+  function setAllMutably(models, state) {
+    if (!Array.isArray(models)) {
+      models = Object.values(models);
+    }
+
+    state.entities = {};
+    state.ids = [];
+    addManyMutably(models, state);
+  }
+
+  function updateOneMutably(update, state) {
+    return updateManyMutably([update], state);
+  }
+
+  function takeUpdatedModel(models, update, state) {
+    if (!(update.id in state.entities)) {
+      return false;
+    }
+
+    var original = state.entities[update.id];
+    var updated = Object.assign({}, original, update.changes);
+    var newKey = selectIdValue(updated, selectId);
+    delete state.entities[update.id];
+    models.push(updated);
+    return newKey !== update.id;
+  }
+
+  function updateManyMutably(updates, state) {
+    var models = [];
+    updates.forEach(function (update) {
+      return takeUpdatedModel(models, update, state);
+    });
+
+    if (models.length !== 0) {
+      merge(models, state);
+    }
+  }
+
+  function upsertOneMutably(entity, state) {
+    return upsertManyMutably([entity], state);
+  }
+
+  function upsertManyMutably(entities, state) {
+    if (!Array.isArray(entities)) {
+      entities = Object.values(entities);
+    }
+
+    var added = [];
+    var updated = [];
+
+    for (var _iterator = entities, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var entity = _ref;
+      var id = selectIdValue(entity, selectId);
+
+      if (id in state.entities) {
+        updated.push({
+          id: id,
+          changes: entity
+        });
+      } else {
+        added.push(entity);
+      }
+    }
+
+    updateManyMutably(updated, state);
+    addManyMutably(added, state);
+  }
+
+  function areArraysEqual(a, b) {
+    if (a.length !== b.length) {
+      return false;
+    }
+
+    for (var i = 0; i < a.length && i < b.length; i++) {
+      if (a[i] === b[i]) {
+        continue;
+      }
+
+      return false;
+    }
+
+    return true;
+  }
+
+  function merge(models, state) {
+    models.sort(sort); // Insert/overwrite all new/updated
+
+    models.forEach(function (model) {
+      state.entities[selectId(model)] = model;
+    });
+    var allEntities = Object.values(state.entities);
+    allEntities.sort(sort);
+    var newSortedIds = allEntities.map(selectId);
+    var ids = state.ids;
+
+    if (!areArraysEqual(ids, newSortedIds)) {
+      state.ids = newSortedIds;
+    }
+  }
+
+  return {
+    removeOne: removeOne,
+    removeMany: removeMany,
+    removeAll: removeAll,
+    addOne: createStateOperator(addOneMutably),
+    updateOne: createStateOperator(updateOneMutably),
+    upsertOne: createStateOperator(upsertOneMutably),
+    setAll: createStateOperator(setAllMutably),
+    addMany: createStateOperator(addManyMutably),
+    updateMany: createStateOperator(updateManyMutably),
+    upsertMany: createStateOperator(upsertManyMutably)
+  };
+}
+
+/**
+ *
+ * @param options
+ *
+ * @public
+ */
+
+function createEntityAdapter(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _sortComparer$selectI = _extends({
+    sortComparer: false,
+    selectId: function selectId(instance) {
+      return instance.id;
+    }
+  }, options),
+      selectId = _sortComparer$selectI.selectId,
+      sortComparer = _sortComparer$selectI.sortComparer;
+
+  var stateFactory = createInitialStateFactory();
+  var selectorsFactory = createSelectorsFactory();
+  var stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
+  return _extends({
+    selectId: selectId,
+    sortComparer: sortComparer
+  }, stateFactory, {}, selectorsFactory, {}, stateAdapter);
+}
+
+// A type of promise-like that resolves synchronously and supports only one observer
+
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
+}
+
+// Borrowed from https://github.com/ai/nanoid/blob/3.0.2/non-secure/index.js
+// This alphabet uses `A-Za-z0-9_-` symbols. A genetic algorithm helped
+// optimize the gzip compression for this alphabet.
+var urlAlphabet = 'ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW';
+/**
+ *
+ * @public
+ */
+
+var nanoid = function nanoid(size) {
+  if (size === void 0) {
+    size = 21;
+  }
+
+  var id = ''; // A compact alternative for `for (var i = 0; i < step; i++)`.
+
+  var i = size;
+
+  while (i--) {
+    // `| 0` is more compact and faster than `Math.floor()`.
+    id += urlAlphabet[Math.random() * 64 | 0];
+  }
+
+  return id;
+};
+
+var commonProperties = ['name', 'message', 'stack', 'code'];
+
+var RejectWithValue = function RejectWithValue(value) {
+  this.value = value;
+}; // Reworked from https://github.com/sindresorhus/serialize-error
+
+
+var miniSerializeError = function miniSerializeError(value) {
+  if (typeof value === 'object' && value !== null) {
+    var simpleError = {};
+
+    for (var _iterator = commonProperties, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var property = _ref;
+
+      if (typeof value[property] === 'string') {
+        simpleError[property] = value[property];
+      }
+    }
+
+    return simpleError;
+  }
+
+  return {
+    message: String(value)
+  };
+};
+/**
+ *
+ * @param type
+ * @param payloadCreator
+ *
+ * @public
+ */
+
+function createAsyncThunk(type, payloadCreator) {
+  var fulfilled = createAction(type + '/fulfilled', function (result, requestId, arg) {
+    return {
+      payload: result,
+      meta: {
+        arg: arg,
+        requestId: requestId
+      }
+    };
+  });
+  var pending = createAction(type + '/pending', function (requestId, arg) {
+    return {
+      payload: undefined,
+      meta: {
+        arg: arg,
+        requestId: requestId
+      }
+    };
+  });
+  var rejected = createAction(type + '/rejected', function (error, requestId, arg, payload) {
+    var aborted = !!error && error.name === 'AbortError';
+    return {
+      payload: payload,
+      error: miniSerializeError(error || 'Rejected'),
+      meta: {
+        arg: arg,
+        requestId: requestId,
+        aborted: aborted
+      }
+    };
+  });
+  var displayedWarning = false;
+  var AC = typeof AbortController !== 'undefined' ? AbortController :
+  /*#__PURE__*/
+  function () {
+    function _class() {
+      this.signal = {
+        aborted: false,
+        addEventListener: function addEventListener() {},
+        dispatchEvent: function dispatchEvent() {
+          return false;
+        },
+        onabort: function onabort() {},
+        removeEventListener: function removeEventListener() {}
+      };
+    }
+
+    var _proto = _class.prototype;
+
+    _proto.abort = function abort() {
+      if (true) {
+        if (!displayedWarning) {
+          displayedWarning = true;
+          console.info("This platform does not implement AbortController. \nIf you want to use the AbortController to react to `abort` events, please consider importing a polyfill like 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'.");
+        }
+      }
+    };
+
+    return _class;
+  }();
+
+  function actionCreator(arg) {
+    return function (dispatch, getState, extra) {
+      var requestId = nanoid();
+      var abortController = new AC();
+      var abortReason;
+      var abortedPromise = new Promise(function (_, reject) {
+        return abortController.signal.addEventListener('abort', function () {
+          return reject({
+            name: 'AbortError',
+            message: abortReason || 'Aborted'
+          });
+        });
+      });
+
+      function abort(reason) {
+        abortReason = reason;
+        abortController.abort();
+      }
+
+      var promise = function () {
+        try {
+          var _temp3 = function _temp3() {
+            // We dispatch the result action _after_ the catch, to avoid having any errors
+            // here get swallowed by the try/catch block,
+            // per https://twitter.com/dan_abramov/status/770914221638942720
+            // and https://redux-toolkit.js.org/tutorials/advanced-tutorial#async-error-handling-logic-in-thunks
+            dispatch(finalAction);
+            return finalAction;
+          };
+
+          var finalAction;
+
+          var _temp4 = _catch(function () {
+            dispatch(pending(requestId, arg));
+            return Promise.resolve(Promise.race([abortedPromise, Promise.resolve(payloadCreator(arg, {
+              dispatch: dispatch,
+              getState: getState,
+              extra: extra,
+              requestId: requestId,
+              signal: abortController.signal,
+              rejectWithValue: function rejectWithValue(value) {
+                return new RejectWithValue(value);
+              }
+            })).then(function (result) {
+              if (result instanceof RejectWithValue) {
+                return rejected(null, requestId, arg, result.value);
+              }
+
+              return fulfilled(result, requestId, arg);
+            })])).then(function (_Promise$race) {
+              finalAction = _Promise$race;
+            });
+          }, function (err) {
+            finalAction = rejected(err, requestId, arg);
+          });
+
+          return Promise.resolve(_temp4 && _temp4.then ? _temp4.then(_temp3) : _temp3(_temp4));
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }();
+
+      return Object.assign(promise, {
+        abort: abort
+      });
+    };
+  }
+
+  return Object.assign(actionCreator, {
+    pending: pending,
+    rejected: rejected,
+    fulfilled: fulfilled
+  });
+}
+/**
+ * @public
+ */
+
+function unwrapResult(returned) {
+  if ('error' in returned) {
+    throw returned.error;
+  }
+
+  return returned.payload;
+}
+
+// we assume RTK will be used with React Native and other Proxy-less
+// environments.  In addition, that's how Immer 4 behaved, and since
+// we want to ship this in an RTK minor, we should keep the same behavior.
+
+Object(immer__WEBPACK_IMPORTED_MODULE_0__["enableES5"])();
+
+
+//# sourceMappingURL=redux-toolkit.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/function-bind/implementation.js":
 /*!******************************************************!*\
   !*** ./node_modules/function-bind/implementation.js ***!
@@ -806,6 +2263,40 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 }
 
 module.exports = hoistNonReactStatics;
+
+
+/***/ }),
+
+/***/ "./node_modules/immer/dist/immer.esm.js":
+/*!**********************************************!*\
+  !*** ./node_modules/immer/dist/immer.esm.js ***!
+  \**********************************************/
+/*! exports provided: default, Immer, applyPatches, castDraft, castImmutable, createDraft, enableAllPlugins, enableES5, enableMapSet, enablePatches, finishDraft, immerable, isDraft, isDraftable, nothing, original, produce, produceWithPatches, setAutoFreeze, setUseProxies */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Immer", function() { return Z; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPatches", function() { return un; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "castDraft", function() { return T; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "castImmutable", function() { return F; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDraft", function() { return an; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableAllPlugins", function() { return N; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableES5", function() { return k; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableMapSet", function() { return D; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enablePatches", function() { return R; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "finishDraft", function() { return fn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "immerable", function() { return q; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDraft", function() { return t; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDraftable", function() { return r; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nothing", function() { return X; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "original", function() { return e; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "produce", function() { return tn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "produceWithPatches", function() { return rn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAutoFreeze", function() { return en; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUseProxies", function() { return on; });
+function n(n){for(var t=arguments.length,r=Array(t>1?t-1:0),e=1;e<t;e++)r[e-1]=arguments[e];if(true){var i=H[n],o=i?"function"==typeof i?i.apply(null,r):i:"unknown error nr: "+n;throw Error("[Immer] "+o)}throw Error("[Immer] minified error nr: "+n+(r.length?" "+r.join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function t(n){return!!n&&!!n[B]}function r(n){return!!n&&(function(n){if(!n||"object"!=typeof n)return!1;var t=Object.getPrototypeOf(n);return!t||t===Object.prototype}(n)||Array.isArray(n)||!!n[q]||!!n.constructor[q]||c(n)||s(n))}function e(n){if(n&&n[B])return n[B].t}function i(n,t){0===o(n)?L(n).forEach((function(r){return t(r,n[r],n)})):n.forEach((function(r,e){return t(e,r,n)}))}function o(n){var t=n[B];return t?t.i>3?t.i-4:t.i:Array.isArray(n)?1:c(n)?2:s(n)?3:0}function u(n,t){return 2===o(n)?n.has(t):Object.prototype.hasOwnProperty.call(n,t)}function a(n,t){return 2===o(n)?n.get(t):n[t]}function f(n,t){return n===t?0!==n||1/n==1/t:n!=n&&t!=t}function c(n){return $&&n instanceof Map}function s(n){return U&&n instanceof Set}function v(n){return n.o||n.t}function p(t,r){if(void 0===r&&(r=!1),Array.isArray(t))return t.slice();var e=Object.create(Object.getPrototypeOf(t));return i(t,(function(i){if(i!==B){var o=Object.getOwnPropertyDescriptor(t,i),u=o.value;o.get&&(r||n(1),u=o.get.call(t)),o.enumerable?e[i]=u:Object.defineProperty(e,i,{value:u,writable:!0,configurable:!0})}})),e}function d(n,e){t(n)||Object.isFrozen(n)||!r(n)||(o(n)>1&&(n.set=n.add=n.clear=n.delete=l),Object.freeze(n),e&&i(n,(function(n,t){return d(t,!0)})))}function l(){n(2)}function h(t){var r=Q[t];return r||n( true?18:undefined,t),r}function y(n,t){Q[n]=t}function m(){return false||J||n(0),J}function b(n,t){t&&(h("Patches"),n.u=[],n.s=[],n.v=t)}function _(n){j(n),n.p.forEach(g),n.p=null}function j(n){n===J&&(J=n.l)}function O(n){return J={p:[],l:J,h:n,m:!0,_:0}}function g(n){var t=n[B];0===t.i||1===t.i?t.j():t.O=!0}function w(t,e){e._=e.p.length;var i=e.p[0],o=void 0!==t&&t!==i;return e.h.g||h("ES5").S(e,t,o),o?(i[B].P&&(_(e),n(4)),r(t)&&(t=S(e,t),e.l||M(e,t)),e.u&&h("Patches").M(i[B],t,e.u,e.s)):t=S(e,i,[]),_(e),e.u&&e.v(e.u,e.s),t!==X?t:void 0}function S(n,t,r){if(Object.isFrozen(t))return t;var e=t[B];if(!e)return i(t,(function(i,o){return P(n,e,t,i,o,r)})),t;if(e.A!==n)return t;if(!e.P)return M(n,e.t,!0),e.t;if(!e.I){e.I=!0,e.A._--;var o=4===e.i||5===e.i?e.o=p(e.k,!0):e.o;i(o,(function(t,i){return P(n,e,o,t,i,r)})),M(n,o,!1),r&&n.u&&h("Patches").R(e,r,n.u,n.s)}return e.o}function P(e,i,c,s,v,p){if( true&&v===c&&n(5),t(v)){var d=S(e,v,p&&i&&3!==i.i&&!u(i.D,s)?p.concat(s):void 0);if(h=s,y=d,2===(m=o(l=c))?l.set(h,y):3===m?(l.delete(h),l.add(y)):l[h]=y,!t(d))return;e.m=!1}var l,h,y,m;if((!i||!f(v,a(i.t,s)))&&r(v)){if(!e.h.N&&e._<1)return;S(e,v),i&&i.A.l||M(e,v)}}function M(n,t,r){void 0===r&&(r=!1),n.h.N&&n.m&&d(t,r)}function A(n,t){var r=n[B],e=Reflect.getOwnPropertyDescriptor(r?v(r):n,t);return e&&e.value}function z(n){if(!n.P){if(n.P=!0,0===n.i||1===n.i){var t=n.o=p(n.t);i(n.p,(function(n,r){t[n]=r})),n.p=void 0}n.l&&z(n.l)}}function x(n){n.o||(n.o=p(n.t))}function I(n,t,r){var e=c(t)?h("MapSet").T(t,r):s(t)?h("MapSet").F(t,r):n.g?function(n,t){var r=Array.isArray(n),e={i:r?1:0,A:t?t.A:m(),P:!1,I:!1,D:{},l:t,t:n,k:null,p:{},o:null,j:null,C:!1},i=e,o=V;r&&(i=[e],o=Y);var u=Proxy.revocable(i,o),a=u.revoke,f=u.proxy;return e.k=f,e.j=a,f}(t,r):h("ES5").J(t,r);return(r?r.A:m()).p.push(e),e}function E(n,t){n.g?z(t):h("ES5").K(t)}function k(){function e(n,t){var r=n[B];if(r&&!r.$){r.$=!0;var e=n[t];return r.$=!1,e}return n[t]}function o(n){n.P||(n.P=!0,n.l&&o(n.l))}function a(n){n.o||(n.o=c(n.t))}function c(n){var t=n&&n[B];if(t){t.$=!0;var r=p(t.k,!0);return t.$=!1,r}return p(n)}function s(n){for(var t=n.length-1;t>=0;t--){var r=n[t][B];if(!r.P)switch(r.i){case 5:l(r)&&o(r);break;case 4:d(r)&&o(r)}}}function d(n){for(var t=n.t,r=n.k,e=Object.keys(r),i=e.length-1;i>=0;i--){var o=e[i],a=t[o];if(void 0===a&&!u(t,o))return!0;var c=r[o],s=c&&c[B];if(s?s.t!==a:!f(c,a))return!0}return e.length!==Object.keys(t).length}function l(n){var t=n.k;if(t.length!==n.t.length)return!0;var r=Object.getOwnPropertyDescriptor(t,t.length-1);return!(!r||r.get)}function h(t){t.O&&n(3,JSON.stringify(v(t)))}var b={};y("ES5",{J:function(n,t){var u=Array.isArray(n),s=c(n);i(s,(function(t){!function(n,t,i){var u=b[t];u?u.enumerable=i:b[t]=u={enumerable:i,get:function(){return function(n,t){h(n);var i=e(v(n),t);return n.$?i:i===e(n.t,t)&&r(i)?(a(n),n.o[t]=I(n.A.h,i,n)):i}(this[B],t)},set:function(n){!function(n,t,r){if(h(n),n.D[t]=!0,!n.P){if(f(r,e(v(n),t)))return;o(n),a(n)}n.o[t]=r}(this[B],t,n)}},Object.defineProperty(n,t,u)}(s,t,u||function(n,t){var r=Object.getOwnPropertyDescriptor(n,t);return!(!r||!r.enumerable)}(n,t))}));var p={i:u?5:4,A:t?t.A:m(),P:!1,$:!1,I:!1,D:{},l:t,t:n,k:s,o:null,O:!1,C:!1};return Object.defineProperty(s,B,{value:p,writable:!0}),s},K:o,S:function(n,r,e){n.p.forEach((function(n){n[B].$=!0})),e?t(r)&&r[B].A===n&&s(n.p):(n.u&&function n(t){if(t&&"object"==typeof t){var r=t[B];if(r){var e=r.t,a=r.k,f=r.D,c=r.i;if(4===c)i(a,(function(t){t!==B&&(void 0!==e[t]||u(e,t)?f[t]||n(a[t]):(f[t]=!0,o(r)))})),i(e,(function(n){void 0!==a[n]||u(a,n)||(f[n]=!1,o(r))}));else if(5===c){if(l(r)&&(o(r),f.length=!0),a.length<e.length)for(var s=a.length;s<e.length;s++)f[s]=!1;else for(var v=e.length;v<a.length;v++)f[v]=!0;for(var p=Math.min(a.length,e.length),d=0;d<p;d++)void 0===f[d]&&n(a[d])}}}}(n.p[0]),s(n.p))}})}function R(){function t(n){if(!n||"object"!=typeof n)return n;if(Array.isArray(n))return n.map(t);if(c(n))return new Map(Array.from(n.entries()).map((function(n){return[n[0],t(n[1])]})));if(s(n))return new Set(Array.from(n).map(t));var r=Object.create(Object.getPrototypeOf(n));for(var e in n)r[e]=t(n[e]);return r}var r="add";y("Patches",{U:function(e,i){return i.forEach((function(i){for(var u=i.path,f=i.op,c=e,s=0;s<u.length-1;s++)"object"!=typeof(c=a(c,u[s]))&&n(15,u.join("/"));var v=o(c),p=t(i.value),d=u[u.length-1];switch(f){case"replace":switch(v){case 2:return c.set(d,p);case 3:n(16);default:return c[d]=p}case r:switch(v){case 1:return c.splice(d,0,p);case 2:return c.set(d,p);case 3:return c.add(p);default:return c[d]=p}case"remove":switch(v){case 1:return c.splice(d,1);case 2:return c.delete(d);case 3:return c.delete(i.value);default:return delete c[d]}default:n(17,f)}})),e},R:function(n,t,e,o){switch(n.i){case 0:case 4:case 2:return function(n,t,e,o){var f=n.t,c=n.o;i(n.D,(function(n,i){var s=a(f,n),v=a(c,n),p=i?u(f,n)?"replace":r:"remove";if(s!==v||"replace"!==p){var d=t.concat(n);e.push("remove"===p?{op:p,path:d}:{op:p,path:d,value:v}),o.push(p===r?{op:"remove",path:d}:"remove"===p?{op:r,path:d,value:s}:{op:"replace",path:d,value:s})}}))}(n,t,e,o);case 5:case 1:return function(n,t,e,i){var o=n.t,u=n.D,a=n.o;if(a.length<o.length){var f=[a,o];o=f[0],a=f[1];var c=[i,e];e=c[0],i=c[1]}for(var s=a.length-o.length,v=0;o[v]===a[v]&&v<o.length;)++v;for(var p=o.length;p>v&&o[p-1]===a[p+s-1];)--p;for(var d=v;d<p;++d)if(u[d]&&a[d]!==o[d]){var l=t.concat([d]);e.push({op:"replace",path:l,value:a[d]}),i.push({op:"replace",path:l,value:o[d]})}for(var h=e.length,y=p+s-1;y>=p;--y){var m=t.concat([y]);e[h+y-p]={op:r,path:m,value:a[y]},i.push({op:"remove",path:m})}}(n,t,e,o);case 3:return function(n,t,e,i){var o=n.t,u=n.o,a=0;o.forEach((function(n){if(!u.has(n)){var o=t.concat([a]);e.push({op:"remove",path:o,value:n}),i.unshift({op:r,path:o,value:n})}a++})),a=0,u.forEach((function(n){if(!o.has(n)){var u=t.concat([a]);e.push({op:r,path:u,value:n}),i.unshift({op:"remove",path:u,value:n})}a++}))}(n,t,e,o)}},M:function(n,t,r,e){r.push({op:"replace",path:[],value:t}),e.push({op:"replace",path:[],value:n.t})}})}function D(){function t(n,t){function r(){this.constructor=n}u(n,t),n.prototype=(r.prototype=t.prototype,new r)}function e(n){n.o||(n.D=new Map,n.o=new Map(n.t))}function i(n){n.o||(n.o=new Set,n.t.forEach((function(t){if(r(t)){var e=I(n.A.h,t,n);n.p.set(t,e),n.o.add(e)}else n.o.add(t)})))}function o(t){t.O&&n(3,JSON.stringify(v(t)))}var u=function(n,t){return(u=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(n,t){n.__proto__=t}||function(n,t){for(var r in t)t.hasOwnProperty(r)&&(n[r]=t[r])})(n,t)},a=function(){function n(n,t){return this[B]={i:2,l:t,A:t?t.A:m(),P:!1,I:!1,o:void 0,D:void 0,t:n,k:this,C:!1,O:!1},this}t(n,Map);var i=n.prototype;return Object.defineProperty(i,"size",{get:function(){return v(this[B]).size}}),i.has=function(n){return v(this[B]).has(n)},i.set=function(n,t){var r=this[B];return o(r),v(r).get(n)!==t&&(e(r),E(r.A.h,r),r.D.set(n,!0),r.o.set(n,t),r.D.set(n,!0)),this},i.delete=function(n){if(!this.has(n))return!1;var t=this[B];return o(t),e(t),E(t.A.h,t),t.D.set(n,!1),t.o.delete(n),!0},i.clear=function(){var n=this[B];return o(n),e(n),E(n.A.h,n),n.D=new Map,n.o.clear()},i.forEach=function(n,t){var r=this;v(this[B]).forEach((function(e,i){n.call(t,r.get(i),i,r)}))},i.get=function(n){var t=this[B];o(t);var i=v(t).get(n);if(t.I||!r(i))return i;if(i!==t.t.get(n))return i;var u=I(t.A.h,i,t);return e(t),t.o.set(n,u),u},i.keys=function(){return v(this[B]).keys()},i.values=function(){var n,t=this,r=this.keys();return(n={})[G]=function(){return t.values()},n.next=function(){var n=r.next();return n.done?n:{done:!1,value:t.get(n.value)}},n},i.entries=function(){var n,t=this,r=this.keys();return(n={})[G]=function(){return t.entries()},n.next=function(){var n=r.next();if(n.done)return n;var e=t.get(n.value);return{done:!1,value:[n.value,e]}},n},i[G]=function(){return this.entries()},n}(),f=function(){function n(n,t){return this[B]={i:3,l:t,A:t?t.A:m(),P:!1,I:!1,o:void 0,t:n,k:this,p:new Map,O:!1,C:!1},this}t(n,Set);var r=n.prototype;return Object.defineProperty(r,"size",{get:function(){return v(this[B]).size}}),r.has=function(n){var t=this[B];return o(t),t.o?!!t.o.has(n)||!(!t.p.has(n)||!t.o.has(t.p.get(n))):t.t.has(n)},r.add=function(n){var t=this[B];return o(t),t.o?t.o.add(n):t.t.has(n)||(i(t),E(t.A.h,t),t.o.add(n)),this},r.delete=function(n){if(!this.has(n))return!1;var t=this[B];return o(t),i(t),E(t.A.h,t),t.o.delete(n)||!!t.p.has(n)&&t.o.delete(t.p.get(n))},r.clear=function(){var n=this[B];return o(n),i(n),E(n.A.h,n),n.o.clear()},r.values=function(){var n=this[B];return o(n),i(n),n.o.values()},r.entries=function(){var n=this[B];return o(n),i(n),n.o.entries()},r.keys=function(){return this.values()},r[G]=function(){return this.values()},r.forEach=function(n,t){for(var r=this.values(),e=r.next();!e.done;)n.call(t,e.value,e.value,this),e=r.next()},n}();y("MapSet",{T:function(n,t){return new a(n,t)},F:function(n,t){return new f(n,t)}})}function N(){k(),D(),R()}function T(n){return n}function F(n){return n}var C,J,K="undefined"!=typeof Symbol,$="undefined"!=typeof Map,U="undefined"!=typeof Set,W="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,X=K?Symbol("immer-nothing"):((C={})["immer-nothing"]=!0,C),q=K?Symbol("immer-draftable"):"__$immer_draftable",B=K?Symbol("immer-state"):"__$immer_state",G=K?Symbol.iterator:"@@iterator",H={0:"Illegal state",1:"Immer drafts cannot have computed properties",2:"This object has been frozen and should not be mutated",3:function(n){return"Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+n},4:"An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",5:"Immer forbids circular references",6:"The first or second argument to `produce` must be a function",7:"The third argument to `produce` must be a function or undefined",8:"First argument to `createDraft` must be a plain object, an array, or an immerable object",9:"First argument to `finishDraft` must be a draft returned by `createDraft`",10:"The given draft is already finalized",11:"Object.defineProperty() cannot be used on an Immer draft",12:"Object.setPrototypeOf() cannot be used on an Immer draft",13:"Immer only supports deleting array indices",14:"Immer only supports setting array indices and the 'length' property",15:function(n){return"Cannot apply patch, path doesn't resolve: "+n},16:'Sets cannot have "replace" patches.',17:function(n){return"Unsupported patch operation: "+n},18:function(n){return"The plugin for '"+n+"' has not been loaded into Immer. To enable the plugin, import and call `enable"+n+"()` when initializing your application."},19:"plugin not loaded",20:"Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available"},L="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,Q={},V={get:function(n,t){if(t===B)return n;var e=n.p;if(!n.P&&u(e,t))return e[t];var i=v(n)[t];if(n.I||!r(i))return i;if(n.P){if(i!==A(n.t,t))return i;e=n.o}return e[t]=I(n.A.h,i,n)},has:function(n,t){return t in v(n)},ownKeys:function(n){return Reflect.ownKeys(v(n))},set:function(n,t,r){if(!n.P){var e=A(n.t,t);if(r?f(e,r)||r===n.p[t]:f(e,r)&&t in n.t)return!0;x(n),z(n)}return n.D[t]=!0,n.o[t]=r,!0},deleteProperty:function(n,t){return void 0!==A(n.t,t)||t in n.t?(n.D[t]=!1,x(n),z(n)):n.D[t]&&delete n.D[t],n.o&&delete n.o[t],!0},getOwnPropertyDescriptor:function(n,t){var r=v(n),e=Reflect.getOwnPropertyDescriptor(r,t);return e&&(e.writable=!0,e.configurable=1!==n.i||"length"!==t),e},defineProperty:function(){n(11)},getPrototypeOf:function(n){return Object.getPrototypeOf(n.t)},setPrototypeOf:function(){n(12)}},Y={};i(V,(function(n,t){Y[n]=function(){return arguments[0]=arguments[0][0],t.apply(this,arguments)}})),Y.deleteProperty=function(t,r){return true&&isNaN(parseInt(r))&&n(13),V.deleteProperty.call(this,t[0],r)},Y.set=function(t,r,e){return true&&"length"!==r&&isNaN(parseInt(r))&&n(14),V.set.call(this,t[0],r,e,t[0])};var Z=function(){function e(n){this.g=W,this.N="production"!=="development","boolean"==typeof(null==n?void 0:n.useProxies)&&this.setUseProxies(n.useProxies),"boolean"==typeof(null==n?void 0:n.autoFreeze)&&this.setAutoFreeze(n.autoFreeze),this.produce=this.produce.bind(this),this.produceWithPatches=this.produceWithPatches.bind(this)}var i=e.prototype;return i.produce=function(t,e,i){if("function"==typeof t&&"function"!=typeof e){var o=e;e=t;var u=this;return function(n){var t=this;void 0===n&&(n=o);for(var r=arguments.length,i=Array(r>1?r-1:0),a=1;a<r;a++)i[a-1]=arguments[a];return u.produce(n,(function(n){var r;return(r=e).call.apply(r,[t,n].concat(i))}))}}var a;if("function"!=typeof e&&n(6),void 0!==i&&"function"!=typeof i&&n(7),r(t)){var f=O(this),c=I(this,t,void 0),s=!0;try{a=e(c),s=!1}finally{s?_(f):j(f)}return"undefined"!=typeof Promise&&a instanceof Promise?a.then((function(n){return b(f,i),w(n,f)}),(function(n){throw _(f),n})):(b(f,i),w(a,f))}if((a=e(t))!==X)return void 0===a&&(a=t),this.N&&d(a,!0),a},i.produceWithPatches=function(n,t){var r,e,i=this;return"function"==typeof n?function(t){for(var r=arguments.length,e=Array(r>1?r-1:0),o=1;o<r;o++)e[o-1]=arguments[o];return i.produceWithPatches(t,(function(t){return n.apply(void 0,[t].concat(e))}))}:[this.produce(n,t,(function(n,t){r=n,e=t})),r,e]},i.createDraft=function(t){r(t)||n(8);var e=O(this),i=I(this,t,void 0);return i[B].C=!0,j(e),i},i.finishDraft=function(t,r){var e=t&&t[B]; true&&(e&&e.C||n(9),e.I&&n(10));var i=e.A;return b(i,r),w(void 0,i)},i.setAutoFreeze=function(n){this.N=n},i.setUseProxies=function(t){W||n(20),this.g=t},i.applyPatches=function(n,r){var e;for(e=r.length-1;e>=0;e--){var i=r[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}var o=h("Patches").U;return t(n)?o(n,r):this.produce(n,(function(n){return o(n,r.slice(e+1))}))},e}(),nn=new Z,tn=nn.produce,rn=nn.produceWithPatches.bind(nn),en=nn.setAutoFreeze.bind(nn),on=nn.setUseProxies.bind(nn),un=nn.applyPatches.bind(nn),an=nn.createDraft.bind(nn),fn=nn.finishDraft.bind(nn);/* harmony default export */ __webpack_exports__["default"] = (tn);
+//# sourceMappingURL=immer.esm.js.map
 
 
 /***/ }),
@@ -3576,6 +5067,1101 @@ exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ "./node
 
 /***/ }),
 
+/***/ "./node_modules/react-currency-format/lib/currency-format.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-currency-format/lib/currency-format.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-currency-format/lib/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  thousandSeparator: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.oneOf([true])]),
+  thousandSpacing: _propTypes2.default.oneOf(['2', '2s', '3', '4']),
+  decimalSeparator: _propTypes2.default.string,
+  decimalScale: _propTypes2.default.number,
+  fixedDecimalScale: _propTypes2.default.bool,
+  displayType: _propTypes2.default.oneOf(['input', 'text']),
+  prefix: _propTypes2.default.string,
+  suffix: _propTypes2.default.string,
+  format: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func]),
+  removeFormatting: _propTypes2.default.func,
+  mask: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.arrayOf(_propTypes2.default.string)]),
+  value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  isNumericString: _propTypes2.default.bool,
+  customInput: _propTypes2.default.func,
+  allowNegative: _propTypes2.default.bool,
+  onValueChange: _propTypes2.default.func,
+  onKeyDown: _propTypes2.default.func,
+  onMouseUp: _propTypes2.default.func,
+  onChange: _propTypes2.default.func,
+  onFocus: _propTypes2.default.func,
+  onBlur: _propTypes2.default.func,
+  type: _propTypes2.default.oneOf(['text', 'tel']),
+  isAllowed: _propTypes2.default.func,
+  renderText: _propTypes2.default.func
+};
+
+var defaultProps = {
+  displayType: 'input',
+  decimalSeparator: '.',
+  thousandSpacing: '3',
+  fixedDecimalScale: false,
+  prefix: '',
+  suffix: '',
+  allowNegative: true,
+  isNumericString: false,
+  type: 'text',
+  onValueChange: _utils.noop,
+  onChange: _utils.noop,
+  onKeyDown: _utils.noop,
+  onMouseUp: _utils.noop,
+  onFocus: _utils.noop,
+  onBlur: _utils.noop,
+  isAllowed: _utils.returnTrue
+};
+
+var CurrencyFormat = function (_React$Component) {
+  _inherits(CurrencyFormat, _React$Component);
+
+  function CurrencyFormat(props) {
+    _classCallCheck(this, CurrencyFormat);
+
+    //validate props
+    var _this = _possibleConstructorReturn(this, (CurrencyFormat.__proto__ || Object.getPrototypeOf(CurrencyFormat)).call(this, props));
+
+    _this.validateProps();
+
+    var formattedValue = _this.formatValueProp();
+
+    _this.state = {
+      value: formattedValue,
+      numAsString: _this.removeFormatting(formattedValue)
+    };
+
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onKeyDown = _this.onKeyDown.bind(_this);
+    _this.onMouseUp = _this.onMouseUp.bind(_this);
+    _this.onFocus = _this.onFocus.bind(_this);
+    _this.onBlur = _this.onBlur.bind(_this);
+    return _this;
+  }
+
+  _createClass(CurrencyFormat, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      this.updateValueIfRequired(prevProps);
+    }
+  }, {
+    key: 'updateValueIfRequired',
+    value: function updateValueIfRequired(prevProps) {
+      var props = this.props,
+          state = this.state;
+
+
+      if (prevProps !== props) {
+        //validate props
+        this.validateProps();
+
+        var stateValue = state.value;
+
+        var lastNumStr = state.numAsString || '';
+
+        var formattedValue = props.value === undefined ? this.formatNumString(lastNumStr) : this.formatValueProp();
+
+        if (formattedValue !== stateValue) {
+          this.setState({
+            value: formattedValue,
+            numAsString: this.removeFormatting(formattedValue)
+          });
+        }
+      }
+    }
+
+    /** Misc methods **/
+
+  }, {
+    key: 'getFloatString',
+    value: function getFloatString() {
+      var num = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      var _getSeparators = this.getSeparators(),
+          decimalSeparator = _getSeparators.decimalSeparator;
+
+      var numRegex = this.getNumberRegex(true);
+
+      //remove negation for regex check
+      var hasNegation = num[0] === '-';
+      if (hasNegation) num = num.replace('-', '');
+
+      num = (num.match(numRegex) || []).join('').replace(decimalSeparator, '.');
+
+      //remove extra decimals
+      var firstDecimalIndex = num.indexOf('.');
+
+      if (firstDecimalIndex !== -1) {
+        num = num.substring(0, firstDecimalIndex) + '.' + num.substring(firstDecimalIndex + 1, num.length).replace(new RegExp((0, _utils.escapeRegExp)(decimalSeparator), 'g'), '');
+      }
+
+      //add negation back
+      if (hasNegation) num = '-' + num;
+
+      return num;
+    }
+
+    //returned regex assumes decimalSeparator is as per prop
+
+  }, {
+    key: 'getNumberRegex',
+    value: function getNumberRegex(g, ignoreDecimalSeparator) {
+      var _props = this.props,
+          format = _props.format,
+          decimalScale = _props.decimalScale;
+
+      var _getSeparators2 = this.getSeparators(),
+          decimalSeparator = _getSeparators2.decimalSeparator;
+
+      return new RegExp('\\d' + (decimalSeparator && decimalScale !== 0 && !ignoreDecimalSeparator && !format ? '|' + (0, _utils.escapeRegExp)(decimalSeparator) : ''), g ? 'g' : undefined);
+    }
+  }, {
+    key: 'getSeparators',
+    value: function getSeparators() {
+      var _props2 = this.props,
+          decimalSeparator = _props2.decimalSeparator,
+          thousandSpacing = _props2.thousandSpacing;
+      var thousandSeparator = this.props.thousandSeparator;
+
+
+      if (thousandSeparator === true) {
+        thousandSeparator = ',';
+      }
+
+      return {
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+        thousandSpacing: thousandSpacing
+      };
+    }
+  }, {
+    key: 'getMaskAtIndex',
+    value: function getMaskAtIndex(index) {
+      var _props$mask = this.props.mask,
+          mask = _props$mask === undefined ? ' ' : _props$mask;
+
+      if (typeof mask === 'string') {
+        return mask;
+      }
+
+      return mask[index] || ' ';
+    }
+  }, {
+    key: 'validateProps',
+    value: function validateProps() {
+      var mask = this.props.mask;
+
+      //validate decimalSeparator and thousandSeparator
+
+      var _getSeparators3 = this.getSeparators(),
+          decimalSeparator = _getSeparators3.decimalSeparator,
+          thousandSeparator = _getSeparators3.thousandSeparator;
+
+      if (decimalSeparator === thousandSeparator) {
+        throw new Error('\n          Decimal separator can\'t be same as thousand separator.\n\n          thousandSeparator: ' + thousandSeparator + ' (thousandSeparator = {true} is same as thousandSeparator = ",")\n          decimalSeparator: ' + decimalSeparator + ' (default value for decimalSeparator is .)\n       ');
+      }
+
+      //validate mask
+      if (mask) {
+        var maskAsStr = mask === 'string' ? mask : mask.toString();
+        if (maskAsStr.match(/\d/g)) {
+          throw new Error('\n          Mask ' + mask + ' should not contain numeric character;\n        ');
+        }
+      }
+    }
+  }, {
+    key: 'splitDecimal',
+    value: function splitDecimal(numStr) {
+      var allowNegative = this.props.allowNegative;
+
+      var hasNagation = numStr[0] === '-';
+      var addNegation = hasNagation && allowNegative;
+      numStr = numStr.replace('-', '');
+
+      var parts = numStr.split('.');
+      var beforeDecimal = parts[0];
+      var afterDecimal = parts[1] || '';
+
+      return {
+        beforeDecimal: beforeDecimal,
+        afterDecimal: afterDecimal,
+        hasNagation: hasNagation,
+        addNegation: addNegation
+      };
+    }
+
+    /** Misc methods end **/
+
+    /** caret specific methods **/
+
+  }, {
+    key: 'setPatchedCaretPosition',
+    value: function setPatchedCaretPosition(el, caretPos, currentValue) {
+      /* setting caret position within timeout of 0ms is required for mobile chrome,
+      otherwise browser resets the caret position after we set it
+      We are also setting it without timeout so that in normal browser we don't see the flickering */
+      (0, _utils.setCaretPosition)(el, caretPos);
+      setTimeout(function () {
+        if (el.value === currentValue) (0, _utils.setCaretPosition)(el, caretPos);
+      }, 0);
+    }
+
+    /* This keeps the caret within typing area so people can't type in between prefix or suffix */
+
+  }, {
+    key: 'correctCaretPosition',
+    value: function correctCaretPosition(value, caretPos, direction) {
+      var _props3 = this.props,
+          prefix = _props3.prefix,
+          suffix = _props3.suffix,
+          format = _props3.format;
+
+      //in case of format as number limit between prefix and suffix
+
+      if (!format) {
+        var hasNegation = value[0] === '-';
+        return Math.min(Math.max(caretPos, prefix.length + (hasNegation ? 1 : 0)), value.length - suffix.length);
+      }
+
+      //in case if custom format method don't do anything
+      if (typeof format === 'function') return caretPos;
+
+      /* in case format is string find the closest # position from the caret position */
+
+      //in case the caretPos have input value on it don't do anything
+      if (format[caretPos] === '#' && (0, _utils.charIsNumber)(value[caretPos])) return caretPos;
+
+      //if caretPos is just after input value don't do anything
+      if (format[caretPos - 1] === '#' && (0, _utils.charIsNumber)(value[caretPos - 1])) return caretPos;
+
+      //find the nearest caret position
+      var firstHashPosition = format.indexOf('#');
+      var lastHashPosition = format.lastIndexOf('#');
+
+      //limit the cursor between the first # position and the last # position
+      caretPos = Math.min(Math.max(caretPos, firstHashPosition), lastHashPosition + 1);
+
+      var nextPos = format.substring(caretPos, format.length).indexOf('#');
+      var caretLeftBound = caretPos;
+      var caretRightBoud = caretPos + (nextPos === -1 ? 0 : nextPos);
+
+      //get the position where the last number is present
+      while (caretLeftBound > firstHashPosition && (format[caretLeftBound] !== '#' || !(0, _utils.charIsNumber)(value[caretLeftBound]))) {
+        caretLeftBound -= 1;
+      }
+
+      var goToLeft = !(0, _utils.charIsNumber)(value[caretRightBoud]) || direction === 'left' && caretPos !== firstHashPosition || caretPos - caretLeftBound < caretRightBoud - caretPos;
+
+      return goToLeft ? caretLeftBound + 1 : caretRightBoud;
+    }
+  }, {
+    key: 'getCaretPosition',
+    value: function getCaretPosition(inputValue, formattedValue, caretPos) {
+      var format = this.props.format;
+
+      var stateValue = this.state.value;
+      var numRegex = this.getNumberRegex(true);
+      var inputNumber = (inputValue.match(numRegex) || []).join('');
+      var formattedNumber = (formattedValue.match(numRegex) || []).join('');
+      var j = void 0,
+          i = void 0;
+
+      j = 0;
+
+      for (i = 0; i < caretPos; i++) {
+        var currentInputChar = inputValue[i] || '';
+        var currentFormatChar = formattedValue[j] || '';
+        //no need to increase new cursor position if formatted value does not have those characters
+        //case inputValue = 1a23 and formattedValue =  123
+        if (!currentInputChar.match(numRegex) && currentInputChar !== currentFormatChar) continue;
+
+        //When we are striping out leading zeros maintain the new cursor position
+        //Case inputValue = 00023 and formattedValue = 23;
+        if (currentInputChar === '0' && currentFormatChar.match(numRegex) && currentFormatChar !== '0' && inputNumber.length !== formattedNumber.length) continue;
+
+        //we are not using currentFormatChar because j can change here
+        while (currentInputChar !== formattedValue[j] && j < formattedValue.length) {
+          j++;
+        }j++;
+      }
+
+      if (typeof format === 'string' && !stateValue) {
+        //set it to the maximum value so it goes after the last number
+        j = formattedValue.length;
+      }
+
+      //correct caret position if its outside of editable area
+      j = this.correctCaretPosition(formattedValue, j);
+
+      return j;
+    }
+    /** caret specific methods ends **/
+
+    /** methods to remove formattting **/
+
+  }, {
+    key: 'removePrefixAndSuffix',
+    value: function removePrefixAndSuffix(val) {
+      var _props4 = this.props,
+          format = _props4.format,
+          prefix = _props4.prefix,
+          suffix = _props4.suffix;
+
+      //remove prefix and suffix
+
+      if (!format && val) {
+        var isNegative = val[0] === '-';
+
+        //remove negation sign
+        if (isNegative) val = val.substring(1, val.length);
+
+        //remove prefix
+        val = prefix && val.indexOf(prefix) === 0 ? val.substring(prefix.length, val.length) : val;
+
+        //remove suffix
+        var suffixLastIndex = val.lastIndexOf(suffix);
+        val = suffix && suffixLastIndex !== -1 && suffixLastIndex === val.length - suffix.length ? val.substring(0, suffixLastIndex) : val;
+
+        //add negation sign back
+        if (isNegative) val = '-' + val;
+      }
+
+      return val;
+    }
+  }, {
+    key: 'removePatternFormatting',
+    value: function removePatternFormatting(val) {
+      var format = this.props.format;
+
+      var formatArray = format.split('#').filter(function (str) {
+        return str !== '';
+      });
+      var start = 0;
+      var numStr = '';
+
+      for (var i = 0, ln = formatArray.length; i <= ln; i++) {
+        var part = formatArray[i] || '';
+
+        //if i is the last fragment take the index of end of the value
+        //For case like +1 (911) 911 91 91 having pattern +1 (###) ### ## ##
+        var index = i === ln ? val.length : val.indexOf(part, start);
+
+        /* in any case if we don't find the pattern part in the value assume the val as numeric string
+        This will be also in case if user has started typing, in any other case it will not be -1
+        unless wrong prop value is provided */
+        if (index === -1) {
+          numStr = val;
+          break;
+        } else {
+          numStr += val.substring(start, index);
+          start = index + part.length;
+        }
+      }
+
+      return (numStr.match(/\d/g) || []).join('');
+    }
+  }, {
+    key: 'removeFormatting',
+    value: function removeFormatting(val) {
+      var _props5 = this.props,
+          format = _props5.format,
+          removeFormatting = _props5.removeFormatting;
+
+      if (!val) return val;
+
+      if (!format) {
+        val = this.removePrefixAndSuffix(val);
+        val = this.getFloatString(val);
+      } else if (typeof format === 'string') {
+        val = this.removePatternFormatting(val);
+      } else if (typeof removeFormatting === 'function') {
+        //condition need to be handled if format method is provide,
+        val = removeFormatting(val);
+      } else {
+        val = (val.match(/\d/g) || []).join('');
+      }
+      return val;
+    }
+    /** methods to remove formattting end **/
+
+    /*** format specific methods start ***/
+    /**
+     * Format when # based string is provided
+     * @param  {string} numStr Numeric String
+     * @return {string}        formatted Value
+     */
+
+  }, {
+    key: 'formatWithPattern',
+    value: function formatWithPattern(numStr) {
+      var format = this.props.format;
+
+      var hashCount = 0;
+      var formattedNumberAry = format.split('');
+      for (var i = 0, ln = format.length; i < ln; i++) {
+        if (format[i] === '#') {
+          formattedNumberAry[i] = numStr[hashCount] || this.getMaskAtIndex(hashCount);
+          hashCount += 1;
+        }
+      }
+      return formattedNumberAry.join('');
+    }
+    /**
+     * Format the given string according to thousand separator and thousand spacing
+     * @param {*} beforeDecimal 
+     * @param {*} thousandSeparator 
+     * @param {*} thousandSpacing 
+     */
+
+  }, {
+    key: 'formatThousand',
+    value: function formatThousand(beforeDecimal, thousandSeparator, thousandSpacing) {
+      var digitalGroup = void 0;
+      switch (thousandSpacing) {
+        case _utils.thousandGroupSpacing.two:
+          digitalGroup = /(\d)(?=(\d{2})+(?!\d))/g;
+          break;
+        case _utils.thousandGroupSpacing.twoScaled:
+          digitalGroup = /(\d)(?=(((\d{2})+)(\d{1})(?!\d)))/g;
+          break;
+        case _utils.thousandGroupSpacing.four:
+          digitalGroup = /(\d)(?=(\d{4})+(?!\d))/g;
+          break;
+        default:
+          digitalGroup = /(\d)(?=(\d{3})+(?!\d))/g;
+      }
+
+      return beforeDecimal.replace(digitalGroup, '$1' + thousandSeparator);
+    }
+    /**
+     * @param  {string} numStr Numeric string/floatString] It always have decimalSeparator as .
+     * @return {string} formatted Value
+     */
+
+  }, {
+    key: 'formatAsNumber',
+    value: function formatAsNumber(numStr) {
+      var _props6 = this.props,
+          decimalScale = _props6.decimalScale,
+          fixedDecimalScale = _props6.fixedDecimalScale,
+          prefix = _props6.prefix,
+          suffix = _props6.suffix;
+
+      var _getSeparators4 = this.getSeparators(),
+          thousandSeparator = _getSeparators4.thousandSeparator,
+          decimalSeparator = _getSeparators4.decimalSeparator,
+          thousandSpacing = _getSeparators4.thousandSpacing;
+
+      var hasDecimalSeparator = numStr.indexOf('.') !== -1 || decimalScale && fixedDecimalScale;
+
+      var _splitDecimal = this.splitDecimal(numStr),
+          beforeDecimal = _splitDecimal.beforeDecimal,
+          afterDecimal = _splitDecimal.afterDecimal,
+          addNegation = _splitDecimal.addNegation; // eslint-disable-line prefer-const
+
+      //apply decimal precision if its defined
+
+
+      if (decimalScale !== undefined) afterDecimal = (0, _utils.limitToScale)(afterDecimal, decimalScale, fixedDecimalScale);
+
+      if (thousandSeparator) {
+        beforeDecimal = this.formatThousand(beforeDecimal, thousandSeparator, thousandSpacing);
+      }
+
+      //add prefix and suffix
+      if (prefix) beforeDecimal = prefix + beforeDecimal;
+      if (suffix) afterDecimal = afterDecimal + suffix;
+
+      //restore negation sign
+      if (addNegation) beforeDecimal = '-' + beforeDecimal;
+
+      numStr = beforeDecimal + (hasDecimalSeparator && decimalSeparator || '') + afterDecimal;
+
+      return numStr;
+    }
+  }, {
+    key: 'formatNumString',
+    value: function formatNumString() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var format = this.props.format;
+
+      var formattedValue = value;
+
+      if (value === '') {
+        formattedValue = '';
+      } else if (value === '-' && !format) {
+        formattedValue = '-';
+        value = '';
+      } else if (typeof format === 'string') {
+        formattedValue = this.formatWithPattern(formattedValue);
+      } else if (typeof format === 'function') {
+        formattedValue = format(formattedValue);
+      } else {
+        formattedValue = this.formatAsNumber(formattedValue);
+      }
+
+      return formattedValue;
+    }
+  }, {
+    key: 'formatValueProp',
+    value: function formatValueProp() {
+      var _props7 = this.props,
+          format = _props7.format,
+          decimalScale = _props7.decimalScale,
+          fixedDecimalScale = _props7.fixedDecimalScale;
+      var _props8 = this.props,
+          value = _props8.value,
+          isNumericString = _props8.isNumericString;
+
+      // if value is not defined return empty string
+
+      if (value === undefined) return '';
+
+      if (typeof value === 'number') {
+        value = value.toString();
+        isNumericString = true;
+      }
+
+      //round the number based on decimalScale
+      //format only if non formatted value is provided
+      if (isNumericString && !format && typeof decimalScale === 'number') {
+        value = (0, _utils.roundToPrecision)(value, decimalScale, fixedDecimalScale);
+      }
+
+      var formattedValue = isNumericString ? this.formatNumString(value) : this.formatInput(value);
+
+      return formattedValue;
+    }
+  }, {
+    key: 'formatNegation',
+    value: function formatNegation() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var allowNegative = this.props.allowNegative;
+
+      var negationRegex = new RegExp('(-)');
+      var doubleNegationRegex = new RegExp('(-)(.)*(-)');
+
+      // Check number has '-' value
+      var hasNegation = negationRegex.test(value);
+
+      // Check number has 2 or more '-' values
+      var removeNegation = doubleNegationRegex.test(value);
+
+      //remove negation
+      value = value.replace(/-/g, '');
+
+      if (hasNegation && !removeNegation && allowNegative) {
+        value = '-' + value;
+      }
+
+      return value;
+    }
+  }, {
+    key: 'formatInput',
+    value: function formatInput() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var format = this.props.format;
+
+      //format negation only if we are formatting as number
+
+      if (!format) {
+        value = this.formatNegation(value);
+      }
+
+      //remove formatting from number
+      value = this.removeFormatting(value);
+
+      return this.formatNumString(value);
+    }
+
+    /*** format specific methods end ***/
+
+  }, {
+    key: 'isCharacterAFormat',
+    value: function isCharacterAFormat(caretPos, value) {
+      var _props9 = this.props,
+          format = _props9.format,
+          prefix = _props9.prefix,
+          suffix = _props9.suffix,
+          decimalScale = _props9.decimalScale,
+          fixedDecimalScale = _props9.fixedDecimalScale;
+
+      var _getSeparators5 = this.getSeparators(),
+          decimalSeparator = _getSeparators5.decimalSeparator;
+
+      //check within format pattern
+
+
+      if (typeof format === 'string' && format[caretPos] !== '#') return true;
+
+      //check in number format
+      if (!format && (caretPos < prefix.length || caretPos >= value.length - suffix.length || decimalScale && fixedDecimalScale && value[caretPos] === decimalSeparator)) {
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: 'checkIfFormatGotDeleted',
+    value: function checkIfFormatGotDeleted(start, end, value) {
+      for (var i = start; i < end; i++) {
+        if (this.isCharacterAFormat(i, value)) return true;
+      }
+      return false;
+    }
+
+    /**
+     * This will check if any formatting got removed by the delete or backspace and reset the value
+     * It will also work as fallback if android chome keyDown handler does not work
+     **/
+
+  }, {
+    key: 'correctInputValue',
+    value: function correctInputValue(caretPos, lastValue, value) {
+      var format = this.props.format;
+
+      var lastNumStr = this.state.numAsString || '';
+
+      //don't do anyhting if something got added, or if value is empty string (when whole input is cleared)
+      if (value.length >= lastValue.length || !value.length) {
+        return value;
+      }
+
+      var start = caretPos;
+      var lastValueParts = (0, _utils.splitString)(lastValue, caretPos);
+      var newValueParts = (0, _utils.splitString)(value, caretPos);
+      var deletedIndex = lastValueParts[1].lastIndexOf(newValueParts[1]);
+      var diff = deletedIndex !== -1 ? lastValueParts[1].substring(0, deletedIndex) : '';
+      var end = start + diff.length;
+
+      //if format got deleted reset the value to last value
+      if (this.checkIfFormatGotDeleted(start, end, lastValue)) {
+        value = lastValue;
+      }
+
+      //for numbers check if beforeDecimal got deleted and there is nothing after decimal,
+      //clear all numbers in such case while keeping the - sign
+      if (!format) {
+        var numericString = this.removeFormatting(value);
+
+        var _splitDecimal2 = this.splitDecimal(numericString),
+            beforeDecimal = _splitDecimal2.beforeDecimal,
+            afterDecimal = _splitDecimal2.afterDecimal,
+            addNegation = _splitDecimal2.addNegation; // eslint-disable-line prefer-const
+
+        //clear only if something got deleted
+
+
+        if (numericString.length < lastNumStr.length && beforeDecimal === '' && !parseFloat(afterDecimal)) {
+          return addNegation ? '-' : '';
+        }
+      }
+
+      return value;
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(e) {
+      e.persist();
+      var el = e.target;
+      var inputValue = el.value;
+      var state = this.state,
+          props = this.props;
+      var isAllowed = props.isAllowed;
+
+      var lastValue = state.value || '';
+
+      /*Max of selectionStart and selectionEnd is taken for the patch of pixel and other mobile device caret bug*/
+      var currentCaretPosition = Math.max(el.selectionStart, el.selectionEnd);
+
+      inputValue = this.correctInputValue(currentCaretPosition, lastValue, inputValue);
+
+      var formattedValue = this.formatInput(inputValue) || '';
+      var numAsString = this.removeFormatting(formattedValue);
+
+      var valueObj = {
+        formattedValue: formattedValue,
+        value: numAsString,
+        floatValue: parseFloat(numAsString)
+      };
+
+      if (!isAllowed(valueObj)) {
+        formattedValue = lastValue;
+      }
+
+      //set the value imperatively, this is required for IE fix
+      el.value = formattedValue;
+
+      //get the caret position
+      var caretPos = this.getCaretPosition(inputValue, formattedValue, currentCaretPosition);
+
+      //set caret position
+      this.setPatchedCaretPosition(el, caretPos, formattedValue);
+
+      //change the state
+      if (formattedValue !== lastValue) {
+        this.setState({ value: formattedValue, numAsString: numAsString }, function () {
+          props.onValueChange(valueObj);
+          props.onChange(e);
+        });
+      } else {
+        props.onChange(e);
+      }
+    }
+  }, {
+    key: 'onBlur',
+    value: function onBlur(e) {
+      var props = this.props,
+          state = this.state;
+      var format = props.format,
+          onBlur = props.onBlur;
+      var numAsString = state.numAsString;
+
+      var lastValue = state.value;
+      if (!format) {
+        numAsString = (0, _utils.fixLeadingZero)(numAsString);
+        var formattedValue = this.formatNumString(numAsString);
+        var valueObj = {
+          formattedValue: formattedValue,
+          value: numAsString,
+          floatValue: parseFloat(numAsString)
+        };
+
+        //change the state
+        if (formattedValue !== lastValue) {
+          // the event needs to be persisted because its properties can be accessed in an asynchronous way
+          e.persist();
+          this.setState({ value: formattedValue, numAsString: numAsString }, function () {
+            props.onValueChange(valueObj);
+            onBlur(e);
+          });
+          return;
+        }
+      }
+      onBlur(e);
+    }
+  }, {
+    key: 'onKeyDown',
+    value: function onKeyDown(e) {
+      var el = e.target;
+      var key = e.key;
+      var selectionEnd = el.selectionEnd,
+          value = el.value;
+      var selectionStart = el.selectionStart;
+
+      var expectedCaretPosition = void 0;
+      var _props10 = this.props,
+          decimalScale = _props10.decimalScale,
+          fixedDecimalScale = _props10.fixedDecimalScale,
+          prefix = _props10.prefix,
+          suffix = _props10.suffix,
+          format = _props10.format,
+          onKeyDown = _props10.onKeyDown;
+
+      var ignoreDecimalSeparator = decimalScale !== undefined && fixedDecimalScale;
+      var numRegex = this.getNumberRegex(false, ignoreDecimalSeparator);
+      var negativeRegex = new RegExp('-');
+      var isPatternFormat = typeof format === 'string';
+
+      //Handle backspace and delete against non numerical/decimal characters or arrow keys
+      if (key === 'ArrowLeft' || key === 'Backspace') {
+        expectedCaretPosition = selectionStart - 1;
+      } else if (key === 'ArrowRight') {
+        expectedCaretPosition = selectionStart + 1;
+      } else if (key === 'Delete') {
+        expectedCaretPosition = selectionStart;
+      }
+
+      //if expectedCaretPosition is not set it means we don't want to Handle keyDown
+      //also if multiple characters are selected don't handle
+      if (expectedCaretPosition === undefined || selectionStart !== selectionEnd) {
+        onKeyDown(e);
+        return;
+      }
+
+      var newCaretPosition = expectedCaretPosition;
+      var leftBound = isPatternFormat ? format.indexOf('#') : prefix.length;
+      var rightBound = isPatternFormat ? format.lastIndexOf('#') + 1 : value.length - suffix.length;
+
+      if (key === 'ArrowLeft' || key === 'ArrowRight') {
+        var direction = key === 'ArrowLeft' ? 'left' : 'right';
+        newCaretPosition = this.correctCaretPosition(value, expectedCaretPosition, direction);
+      } else if (key === 'Delete' && !numRegex.test(value[expectedCaretPosition]) && !negativeRegex.test(value[expectedCaretPosition])) {
+        while (!numRegex.test(value[newCaretPosition]) && newCaretPosition < rightBound) {
+          newCaretPosition++;
+        }
+      } else if (key === 'Backspace' && !numRegex.test(value[expectedCaretPosition]) && !negativeRegex.test(value[expectedCaretPosition])) {
+        while (!numRegex.test(value[newCaretPosition - 1]) && newCaretPosition > leftBound) {
+          newCaretPosition--;
+        }
+        newCaretPosition = this.correctCaretPosition(value, newCaretPosition, 'left');
+      }
+
+      if (newCaretPosition !== expectedCaretPosition || expectedCaretPosition < leftBound || expectedCaretPosition > rightBound) {
+        e.preventDefault();
+        this.setPatchedCaretPosition(el, newCaretPosition, value);
+      }
+
+      /* NOTE: this is just required for unit test as we need to get the newCaretPosition,
+              Remove this when you find different solution */
+      if (e.isUnitTestRun) {
+        this.setPatchedCaretPosition(el, newCaretPosition, value);
+      }
+
+      this.props.onKeyDown(e);
+    }
+
+    /** required to handle the caret position when click anywhere within the input **/
+
+  }, {
+    key: 'onMouseUp',
+    value: function onMouseUp(e) {
+      var el = e.target;
+      var selectionStart = el.selectionStart,
+          selectionEnd = el.selectionEnd,
+          value = el.value;
+
+
+      if (selectionStart === selectionEnd) {
+        var caretPostion = this.correctCaretPosition(value, selectionStart);
+        if (caretPostion !== selectionStart) {
+          this.setPatchedCaretPosition(el, caretPostion, value);
+        }
+      }
+
+      this.props.onMouseUp(e);
+    }
+  }, {
+    key: 'onFocus',
+    value: function onFocus(e) {
+      var _this2 = this;
+
+      // Workaround Chrome and Safari bug https://bugs.chromium.org/p/chromium/issues/detail?id=779328
+      // (onFocus event target selectionStart is always 0 before setTimeout)
+      e.persist();
+      setTimeout(function () {
+        var el = e.target;
+        var selectionStart = el.selectionStart,
+            value = el.value;
+
+
+        var caretPosition = _this2.correctCaretPosition(value, selectionStart);
+        if (caretPosition !== selectionStart) {
+          _this2.setPatchedCaretPosition(el, caretPosition, value);
+        }
+
+        _this2.props.onFocus(e);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props11 = this.props,
+          type = _props11.type,
+          displayType = _props11.displayType,
+          customInput = _props11.customInput,
+          renderText = _props11.renderText;
+      var value = this.state.value;
+
+
+      var otherProps = (0, _utils.omit)(this.props, propTypes);
+
+      var inputProps = _extends({}, otherProps, {
+        type: type,
+        value: value,
+        onChange: this.onChange,
+        onKeyDown: this.onKeyDown,
+        onMouseUp: this.onMouseUp,
+        onFocus: this.onFocus,
+        onBlur: this.onBlur
+      });
+
+      if (displayType === 'text') {
+        return renderText ? renderText(value) || null : _react2.default.createElement(
+          'span',
+          otherProps,
+          value
+        );
+      } else if (customInput) {
+        var CustomInput = customInput;
+        return _react2.default.createElement(CustomInput, inputProps);
+      }
+
+      return _react2.default.createElement('input', inputProps);
+    }
+  }]);
+
+  return CurrencyFormat;
+}(_react2.default.Component);
+
+CurrencyFormat.propTypes = propTypes;
+CurrencyFormat.defaultProps = defaultProps;
+
+module.exports = CurrencyFormat;
+
+/***/ }),
+
+/***/ "./node_modules/react-currency-format/lib/utils.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-currency-format/lib/utils.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.noop = noop;
+exports.returnTrue = returnTrue;
+exports.charIsNumber = charIsNumber;
+exports.escapeRegExp = escapeRegExp;
+exports.fixLeadingZero = fixLeadingZero;
+exports.splitString = splitString;
+exports.limitToScale = limitToScale;
+exports.roundToPrecision = roundToPrecision;
+exports.omit = omit;
+exports.setCaretPosition = setCaretPosition;
+
+
+// basic noop function
+function noop() {}
+function returnTrue() {
+  return true;
+}
+
+function charIsNumber(char) {
+  return !!(char || '').match(/\d/);
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function fixLeadingZero(numStr) {
+  if (!numStr) return numStr;
+  var isNegative = numStr[0] === '-';
+  if (isNegative) numStr = numStr.substring(1, numStr.length);
+  var parts = numStr.split('.');
+  var beforeDecimal = parts[0].replace(/^0+/, '') || '0';
+  var afterDecimal = parts[1] || '';
+
+  return '' + (isNegative ? '-' : '') + beforeDecimal + (afterDecimal ? '.' + afterDecimal : '');
+}
+
+function splitString(str, index) {
+  return [str.substring(0, index), str.substring(index)];
+}
+
+/**
+ * limit decimal numbers to given scale
+ * Not used .fixedTo because that will break with big numbers
+ */
+function limitToScale(numStr, scale, fixedDecimalScale) {
+  var str = '';
+  var filler = fixedDecimalScale ? '0' : '';
+  for (var i = 0; i <= scale - 1; i++) {
+    str += numStr[i] || filler;
+  }
+  return str;
+}
+
+/**
+ * This method is required to round prop value to given scale.
+ * Not used .round or .fixedTo because that will break with big numbers
+ */
+function roundToPrecision(numStr, scale, fixedDecimalScale) {
+  var numberParts = numStr.split('.');
+  var roundedDecimalParts = parseFloat('0.' + (numberParts[1] || '0')).toFixed(scale).split('.');
+  var intPart = numberParts[0].split('').reverse().reduce(function (roundedStr, current, idx) {
+    if (roundedStr.length > idx) {
+      return (Number(roundedStr[0]) + Number(current)).toString() + roundedStr.substring(1, roundedStr.length);
+    }
+    return current + roundedStr;
+  }, roundedDecimalParts[0]);
+
+  var decimalPart = limitToScale(roundedDecimalParts[1] || '', (numberParts[1] || '').length, fixedDecimalScale);
+
+  return intPart + (decimalPart ? '.' + decimalPart : '');
+}
+
+function omit(obj, keyMaps) {
+  var filteredObj = {};
+  Object.keys(obj).forEach(function (key) {
+    if (!keyMaps[key]) filteredObj[key] = obj[key];
+  });
+  return filteredObj;
+}
+
+/** set the caret positon in an input field **/
+function setCaretPosition(el, caretPos) {
+  el.value = el.value;
+  // ^ this is used to not only get "focus", but
+  // to make sure we don't have it everything -selected-
+  // (it causes an issue in chrome, and having it doesn't hurt any other browser)
+  if (el !== null) {
+    if (el.createTextRange) {
+      var range = el.createTextRange();
+      range.move('character', caretPos);
+      range.select();
+      return true;
+    }
+    // (el.selectionStart === 0 added for Firefox bug)
+    if (el.selectionStart || el.selectionStart === 0) {
+      el.focus();
+      el.setSelectionRange(caretPos, caretPos);
+      return true;
+    }
+
+    // fail city, fortunately this never happens (as far as I've tested) :)
+    el.focus();
+    return false;
+  }
+}
+
+var thousandGroupSpacing = exports.thousandGroupSpacing = {
+  two: '2',
+  twoScaled: '2s',
+  three: '3',
+  four: '4'
+};
+
+/***/ }),
+
 /***/ "./node_modules/react-dom/index.js":
 /*!***********************************************************************************************!*\
   !*** delegated ./node_modules/react-dom/index.js from dll-reference dll_2adc2403d89adc16ead0 ***!
@@ -5714,6 +8300,38 @@ module.exports = (__webpack_require__(/*! dll-reference dll_2adc2403d89adc16ead0
 
 /***/ }),
 
+/***/ "./node_modules/redux-thunk/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/redux-thunk/es/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+/* harmony default export */ __webpack_exports__["default"] = (thunk);
+
+/***/ }),
+
 /***/ "./node_modules/redux/es/redux.js":
 /*!****************************************!*\
   !*** ./node_modules/redux/es/redux.js ***!
@@ -7137,6 +9755,142 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/reselect/es/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/reselect/es/index.js ***!
+  \*******************************************/
+/*! exports provided: defaultMemoize, createSelectorCreator, createSelector, createStructuredSelector */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultMemoize", function() { return defaultMemoize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSelectorCreator", function() { return createSelectorCreator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSelector", function() { return createSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStructuredSelector", function() { return createStructuredSelector; });
+function defaultEqualityCheck(a, b) {
+  return a === b;
+}
+
+function areArgumentsShallowlyEqual(equalityCheck, prev, next) {
+  if (prev === null || next === null || prev.length !== next.length) {
+    return false;
+  }
+
+  // Do this in a for loop (and not a `forEach` or an `every`) so we can determine equality as fast as possible.
+  var length = prev.length;
+  for (var i = 0; i < length; i++) {
+    if (!equalityCheck(prev[i], next[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function defaultMemoize(func) {
+  var equalityCheck = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultEqualityCheck;
+
+  var lastArgs = null;
+  var lastResult = null;
+  // we reference arguments instead of spreading them for performance reasons
+  return function () {
+    if (!areArgumentsShallowlyEqual(equalityCheck, lastArgs, arguments)) {
+      // apply arguments instead of spreading for performance.
+      lastResult = func.apply(null, arguments);
+    }
+
+    lastArgs = arguments;
+    return lastResult;
+  };
+}
+
+function getDependencies(funcs) {
+  var dependencies = Array.isArray(funcs[0]) ? funcs[0] : funcs;
+
+  if (!dependencies.every(function (dep) {
+    return typeof dep === 'function';
+  })) {
+    var dependencyTypes = dependencies.map(function (dep) {
+      return typeof dep;
+    }).join(', ');
+    throw new Error('Selector creators expect all input-selectors to be functions, ' + ('instead received the following types: [' + dependencyTypes + ']'));
+  }
+
+  return dependencies;
+}
+
+function createSelectorCreator(memoize) {
+  for (var _len = arguments.length, memoizeOptions = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    memoizeOptions[_key - 1] = arguments[_key];
+  }
+
+  return function () {
+    for (var _len2 = arguments.length, funcs = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      funcs[_key2] = arguments[_key2];
+    }
+
+    var recomputations = 0;
+    var resultFunc = funcs.pop();
+    var dependencies = getDependencies(funcs);
+
+    var memoizedResultFunc = memoize.apply(undefined, [function () {
+      recomputations++;
+      // apply arguments instead of spreading for performance.
+      return resultFunc.apply(null, arguments);
+    }].concat(memoizeOptions));
+
+    // If a selector is called with the exact same arguments we don't need to traverse our dependencies again.
+    var selector = memoize(function () {
+      var params = [];
+      var length = dependencies.length;
+
+      for (var i = 0; i < length; i++) {
+        // apply arguments instead of spreading and mutate a local list of params for performance.
+        params.push(dependencies[i].apply(null, arguments));
+      }
+
+      // apply arguments instead of spreading for performance.
+      return memoizedResultFunc.apply(null, params);
+    });
+
+    selector.resultFunc = resultFunc;
+    selector.dependencies = dependencies;
+    selector.recomputations = function () {
+      return recomputations;
+    };
+    selector.resetRecomputations = function () {
+      return recomputations = 0;
+    };
+    return selector;
+  };
+}
+
+var createSelector = createSelectorCreator(defaultMemoize);
+
+function createStructuredSelector(selectors) {
+  var selectorCreator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : createSelector;
+
+  if (typeof selectors !== 'object') {
+    throw new Error('createStructuredSelector expects first argument to be an object ' + ('where each property is a selector, instead received a ' + typeof selectors));
+  }
+  var objectKeys = Object.keys(selectors);
+  return selectorCreator(objectKeys.map(function (key) {
+    return selectors[key];
+  }), function () {
+    for (var _len3 = arguments.length, values = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      values[_key3] = arguments[_key3];
+    }
+
+    return values.reduce(function (composition, value, index) {
+      composition[objectKeys[index]] = value;
+      return composition;
+    }, {});
+  });
+}
+
+/***/ }),
+
 /***/ "./node_modules/symbol-observable/es/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/symbol-observable/es/index.js ***!
@@ -7275,40 +10029,203 @@ module.exports = function(originalModule) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cart; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js";
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-currency-format */ "./node_modules/react-currency-format/lib/currency-format.js");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_currency_format__WEBPACK_IMPORTED_MODULE_5__);
+var _this = undefined,
+    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js";
+
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-function Cart() {
-  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __self: this,
+
+
+
+
+var CartList = function CartList(_ref) {
+  var id = _ref.id,
+      image = _ref.image,
+      name = _ref.name,
+      price = _ref.price,
+      quantity = _ref.quantity,
+      sum = _ref.sum;
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  return __jsx("div", {
+    __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6,
+      lineNumber: 14,
       columnNumber: 9
     }
-  }, __jsx("p", {
-    __self: this,
+  }, __jsx("h4", {
+    __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7,
+      lineNumber: 15,
       columnNumber: 13
     }
-  }, "Cart page"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    __self: this,
+  }, name), __jsx("p", {
+    __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
+      lineNumber: 16,
       columnNumber: 13
     }
-  }));
-}
+  }, "Price : ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: price,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 24
+    }
+  })), __jsx("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 13
+    }
+  }, "Quantity: ", quantity), __jsx("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 13
+    }
+  }, "SubTotal: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: sum,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 26
+    }
+  })), __jsx("button", {
+    onClick: function onClick() {
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_4__["removeFromCart"](id));
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, "Delete This Item"));
+};
+
+var Cart = function Cart() {
+  var cartItems = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    var transformedCartItems = [];
+
+    for (var key in state.cart.items) {
+      transformedCartItems.push({
+        productId: key,
+        productName: state.cart.items[key].productName,
+        productPrice: state.cart.items[key].productPrice,
+        quantity: state.cart.items[key].quantity,
+        sum: state.cart.items[key].sum
+      });
+    }
+
+    return transformedCartItems;
+  });
+  var totalAmount = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.cart.totalAmount;
+  });
+  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 42,
+      columnNumber: 9
+    }
+  }, __jsx(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 43,
+      columnNumber: 13
+    }
+  }), totalAmount === 0 ? __jsx("h2", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 46,
+      columnNumber: 23
+    }
+  }, "Your Cart is Empty") : cartItems.map(function (item) {
+    return __jsx(CartList, {
+      key: item.productId,
+      id: item.productId,
+      image: item.productImage,
+      name: item.productName,
+      price: item.productPrice,
+      quantity: item.quantity,
+      sum: item.sum,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 48,
+        columnNumber: 25
+      }
+    });
+  }), totalAmount !== 0 && __jsx("h2", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61,
+      columnNumber: 17
+    }
+  }, "Grand Total: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: totalAmount,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61,
+      columnNumber: 34
+    }
+  }), " "));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Cart);
+
+/***/ }),
+
+/***/ "./store/actions/cart.js":
+/*!*******************************!*\
+  !*** ./store/actions/cart.js ***!
+  \*******************************/
+/*! exports provided: ADD_TO_CART, REMOVE_FROM_CART, addToCart, removeFromCart */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART", function() { return REMOVE_FROM_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromCart", function() { return removeFromCart; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+
+var ADD_TO_CART = 'ADD_TO_CART';
+var REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+var addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+var removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
 
 /***/ }),
 

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-const ButtonLink = props => (
-    <Link href={`/${props.path}/[id]`} as={`/${props.path}/${props.id}`}>
-        <button>{props.title}</button>
+const ButtonLink = ({ path, id, title }) => (
+    <Link href={`/${path}/[id]`} as={`/${path}/${id}`}>
+        <button>{title}</button>
     </Link>
 );
 

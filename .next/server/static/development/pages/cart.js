@@ -1900,40 +1900,200 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cart; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-currency-format */ "react-currency-format");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_currency_format__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-function Cart() {
-  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __self: this,
+
+
+
+
+const CartList = ({
+  id,
+  image,
+  name,
+  price,
+  quantity,
+  sum
+}) => {
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  return __jsx("div", {
+    __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6,
+      lineNumber: 14,
       columnNumber: 9
     }
-  }, __jsx("p", {
-    __self: this,
+  }, __jsx("h4", {
+    __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7,
+      lineNumber: 15,
       columnNumber: 13
     }
-  }, "Cart page"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    __self: this,
+  }, name), __jsx("p", {
+    __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
+      lineNumber: 16,
       columnNumber: 13
     }
-  }));
-}
+  }, "Price : ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: price,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 24
+    }
+  })), __jsx("p", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 13
+    }
+  }, "Quantity: ", quantity), __jsx("p", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 13
+    }
+  }, "SubTotal: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: sum,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 26
+    }
+  })), __jsx("button", {
+    onClick: () => {
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_4__["removeFromCart"](id));
+    },
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, "Delete This Item"));
+};
+
+const Cart = () => {
+  const cartItems = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => {
+    const transformedCartItems = [];
+
+    for (const key in state.cart.items) {
+      transformedCartItems.push({
+        productId: key,
+        productName: state.cart.items[key].productName,
+        productPrice: state.cart.items[key].productPrice,
+        quantity: state.cart.items[key].quantity,
+        sum: state.cart.items[key].sum
+      });
+    }
+
+    return transformedCartItems;
+  });
+  const totalAmount = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.cart.totalAmount);
+  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 42,
+      columnNumber: 9
+    }
+  }, __jsx(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 43,
+      columnNumber: 13
+    }
+  }), totalAmount === 0 ? __jsx("h2", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 46,
+      columnNumber: 23
+    }
+  }, "Your Cart is Empty") : cartItems.map(item => __jsx(CartList, {
+    key: item.productId,
+    id: item.productId,
+    image: item.productImage,
+    name: item.productName,
+    price: item.productPrice,
+    quantity: item.quantity,
+    sum: item.sum,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 48,
+      columnNumber: 25
+    }
+  })), totalAmount !== 0 && __jsx("h2", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61,
+      columnNumber: 17
+    }
+  }, "Grand Total: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: totalAmount,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61,
+      columnNumber: 34
+    }
+  }), " "));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Cart);
+
+/***/ }),
+
+/***/ "./store/actions/cart.js":
+/*!*******************************!*\
+  !*** ./store/actions/cart.js ***!
+  \*******************************/
+/*! exports provided: ADD_TO_CART, REMOVE_FROM_CART, addToCart, removeFromCart */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART", function() { return REMOVE_FROM_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromCart", function() { return removeFromCart; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
+
+const ADD_TO_CART = 'ADD_TO_CART';
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+const removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
 
 /***/ }),
 
@@ -1946,6 +2106,17 @@ function Cart() {
 
 module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js */"./pages/cart.js");
 
+
+/***/ }),
+
+/***/ "@reduxjs/toolkit":
+/*!***********************************!*\
+  !*** external "@reduxjs/toolkit" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@reduxjs/toolkit");
 
 /***/ }),
 
@@ -1979,6 +2150,17 @@ module.exports = require("prop-types-exact");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-currency-format":
+/*!****************************************!*\
+  !*** external "react-currency-format" ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-currency-format");
 
 /***/ }),
 

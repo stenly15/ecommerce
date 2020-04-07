@@ -1,19 +1,22 @@
-import { ADD_TO_CART } from "../actions/cart";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
 
 import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
-    items: {}
+    items: {},
+    totalAmount: 0
 };
 
 const cartReducer = createReducer(initialState, {
     [ADD_TO_CART]: (state, action) => {
-        const addedProduct = action.payload;
-        const productId = addedProduct.productId;
-        const productPrice = addedProduct.productPrice;
-        const productName = addedProduct.productName;
-        const productDescription = addedProduct.productDescription;
-        const productImage = addedProduct.productImage;
+        const {
+            productId,
+            productName,
+            productPrice,
+            productDescription,
+            productImage,
+            productCategory
+        } = action.payload;
 
         let updatedOrNewCartItem;
 
@@ -24,7 +27,9 @@ const cartReducer = createReducer(initialState, {
                 productPrice,
                 productDescription,
                 productImage,
-                quantity: state.items[productId].quantity + 1
+                productCategory,
+                quantity: state.items[productId].quantity + 1,
+                sum: state.items[productId].sum + productPrice
             }
         } else {
             updatedOrNewCartItem = {
@@ -33,13 +38,53 @@ const cartReducer = createReducer(initialState, {
                 productPrice,
                 productDescription,
                 productImage,
-                quantity: 1
+                productCategory,
+                quantity: 1,
+                sum: productPrice
             }
         }
 
         return {
             ...state,
             items: { ...state.items, [productId]: updatedOrNewCartItem },
+            totalAmount: state.totalAmount + productPrice
+        };
+    },
+    [REMOVE_FROM_CART]: (state, action) => {
+        const {
+            productId,
+            productName,
+            productPrice,
+            productDescription,
+            productImage,
+            productCategory,
+            quantity
+        } = state.items[action.payload];
+
+        let updatedCartItems;
+
+        if (quantity > 1) {
+            //need to reduce, not erase it
+            updatedCartItems = {
+                productId,
+                productName,
+                productPrice,
+                productDescription,
+                productImage,
+                productCategory,
+                quantity: state.items[productId].quantity - 1,
+                sum: state.items[productId].sum - productPrice
+            }
+            updatedCartItems = { ...state.items, [action.payload]: updatedCartItems };
+        } else {
+            updatedCartItems = { ...state.items };
+            delete updatedCartItems[action.payload];
+        }
+
+        return {
+            ...state,
+            items: updatedCartItems,
+            totalAmount: state.totalAmount - productPrice
         };
     }
 })

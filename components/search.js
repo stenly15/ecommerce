@@ -1,6 +1,6 @@
 const Search = () => {
     return (
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, margin: 20 }}>
             <input type="text" />
             <> Filter by Category: </>
             <select>

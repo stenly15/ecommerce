@@ -8231,17 +8231,21 @@ function MyApp(_ref) {
 /*!*******************************!*\
   !*** ./store/actions/cart.js ***!
   \*******************************/
-/*! exports provided: ADD_TO_CART, addToCart */
+/*! exports provided: ADD_TO_CART, REMOVE_FROM_CART, addToCart, removeFromCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART", function() { return REMOVE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromCart", function() { return removeFromCart; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 var ADD_TO_CART = 'ADD_TO_CART';
+var REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 var addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+var removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
 
 /***/ }),
 
@@ -8295,6 +8299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 
+var _createReducer;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -8302,15 +8308,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 var initialState = {
-  items: {}
+  items: {},
+  totalAmount: 0
 };
-var cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _actions_cart__WEBPACK_IMPORTED_MODULE_1__["ADD_TO_CART"], function (state, action) {
-  var addedProduct = action.payload;
-  var productId = addedProduct.productId;
-  var productPrice = addedProduct.productPrice;
-  var productName = addedProduct.productName;
-  var productDescription = addedProduct.productDescription;
-  var productImage = addedProduct.productImage;
+var cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, (_createReducer = {}, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_cart__WEBPACK_IMPORTED_MODULE_1__["ADD_TO_CART"], function (state, action) {
+  var _action$payload = action.payload,
+      productId = _action$payload.productId,
+      productName = _action$payload.productName,
+      productPrice = _action$payload.productPrice,
+      productDescription = _action$payload.productDescription,
+      productImage = _action$payload.productImage,
+      productCategory = _action$payload.productCategory;
   var updatedOrNewCartItem;
 
   if (state.items[productId]) {
@@ -8320,7 +8328,9 @@ var cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createRe
       productPrice: productPrice,
       productDescription: productDescription,
       productImage: productImage,
-      quantity: state.items[productId].quantity + 1
+      productCategory: productCategory,
+      quantity: state.items[productId].quantity + 1,
+      sum: state.items[productId].sum + productPrice
     };
   } else {
     updatedOrNewCartItem = {
@@ -8329,14 +8339,50 @@ var cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createRe
       productPrice: productPrice,
       productDescription: productDescription,
       productImage: productImage,
-      quantity: 1
+      productCategory: productCategory,
+      quantity: 1,
+      sum: productPrice
     };
   }
 
   return _objectSpread({}, state, {
-    items: _objectSpread({}, state.items, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, productId, updatedOrNewCartItem))
+    items: _objectSpread({}, state.items, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, productId, updatedOrNewCartItem)),
+    totalAmount: state.totalAmount + productPrice
   });
-}));
+}), Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_cart__WEBPACK_IMPORTED_MODULE_1__["REMOVE_FROM_CART"], function (state, action) {
+  var _state$items$action$p = state.items[action.payload],
+      productId = _state$items$action$p.productId,
+      productName = _state$items$action$p.productName,
+      productPrice = _state$items$action$p.productPrice,
+      productDescription = _state$items$action$p.productDescription,
+      productImage = _state$items$action$p.productImage,
+      productCategory = _state$items$action$p.productCategory,
+      quantity = _state$items$action$p.quantity;
+  var updatedCartItems;
+
+  if (quantity > 1) {
+    //need to reduce, not erase it
+    updatedCartItems = {
+      productId: productId,
+      productName: productName,
+      productPrice: productPrice,
+      productDescription: productDescription,
+      productImage: productImage,
+      productCategory: productCategory,
+      quantity: state.items[productId].quantity - 1,
+      sum: state.items[productId].sum - productPrice
+    };
+    updatedCartItems = _objectSpread({}, state.items, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, action.payload, updatedCartItems));
+  } else {
+    updatedCartItems = _objectSpread({}, state.items);
+    delete updatedCartItems[action.payload];
+  }
+
+  return _objectSpread({}, state, {
+    items: updatedCartItems,
+    totalAmount: state.totalAmount - productPrice
+  });
+}), _createReducer));
 /* harmony default export */ __webpack_exports__["default"] = (cartReducer);
 
 /***/ }),
@@ -8365,21 +8411,24 @@ var initialState = {
   availableProducts: [{
     productId: '1',
     productName: 'Star Wars Home Arcade Game',
-    productPrice: 'Rp. 6749865',
+    productPrice: 25000000,
     productDescription: 'This gergeous, three-quarter-sized arcade cabinet comes loaded ' + 'with some classic Star Wars gaming titles, including A New Hope, ' + 'The Empire Strikes Back, and Return of the Jedi.',
-    productImage: 'img1.png'
+    productImage: 'img1.png',
+    productCategory: 'Games'
   }, {
     productId: '2',
     productName: 'Poe\'s Boosted X-Wing Fighter',
-    productPrice: 'Rp. 6749865',
+    productPrice: 15000000,
     productDescription: 'For battling womp rats and tie fighters, and because you can\'t spell \"Poe Dameron\" without \"drone.\"',
-    productImage: 'img2.png'
+    productImage: 'img2.png',
+    productCategory: 'Toys'
   }, {
     productId: '3',
     productName: 'Star Wars\' Phone Cases',
-    productPrice: 'Rp. 6749865',
+    productPrice: 2500000,
     productDescription: 'If you want to show your love for the movie every day.',
-    productImage: 'img3.png'
+    productImage: 'img3.png',
+    productCategory: 'Accecories'
   }]
 };
 var productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _actions_products__WEBPACK_IMPORTED_MODULE_1__["GET_ALL_PRODUCTS"], function (state) {
@@ -8413,18 +8462,20 @@ var initialState = {
   items: {}
 };
 var wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _actions_wishlist__WEBPACK_IMPORTED_MODULE_1__["ADD_TO_WISHLIST"], function (state, action) {
-  var addedProduct = action.payload;
-  var productId = addedProduct.productId;
-  var productPrice = addedProduct.productPrice;
-  var productName = addedProduct.productName;
-  var productDescription = addedProduct.productDescription;
-  var productImage = addedProduct.productImage;
+  var _action$payload = action.payload,
+      productId = _action$payload.productId,
+      productName = _action$payload.productName,
+      productPrice = _action$payload.productPrice,
+      productDescription = _action$payload.productDescription,
+      productImage = _action$payload.productImage,
+      productCategory = _action$payload.productCategory;
   var wishListItem = {
     productId: productId,
     productName: productName,
     productPrice: productPrice,
     productDescription: productDescription,
-    productImage: productImage
+    productImage: productImage,
+    productCategory: productCategory
   };
   return _objectSpread({}, state, {
     items: _objectSpread({}, state.items, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, productId, wishListItem))

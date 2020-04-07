@@ -6,25 +6,28 @@ const initialState = {
         {
             productId: '1',
             productName: 'Star Wars Home Arcade Game',
-            productPrice: 'Rp. 6749865',
+            productPrice: 25000000,
             productDescription: 'This gergeous, three-quarter-sized arcade cabinet comes loaded ' +
                 'with some classic Star Wars gaming titles, including A New Hope, ' +
                 'The Empire Strikes Back, and Return of the Jedi.',
-            productImage: 'img1.png'
+            productImage: 'img1.png',
+            productCategory: 'Games'
         },
         {
             productId: '2',
             productName: 'Poe\'s Boosted X-Wing Fighter',
-            productPrice: 'Rp. 6749865',
+            productPrice: 15000000,
             productDescription: 'For battling womp rats and tie fighters, and because you can\'t spell \"Poe Dameron\" without \"drone.\"',
-            productImage: 'img2.png'
+            productImage: 'img2.png',
+            productCategory: 'Toys'
         },
         {
             productId: '3',
             productName: 'Star Wars\' Phone Cases',
-            productPrice: 'Rp. 6749865',
+            productPrice: 2500000,
             productDescription: 'If you want to show your love for the movie every day.',
-            productImage: 'img3.png'
+            productImage: 'img3.png',
+            productCategory: 'Accecories'
         }
     ]
 };

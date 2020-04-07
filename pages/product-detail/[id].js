@@ -12,7 +12,6 @@ const ProductDetail = props => {
 
     return (
         <Layout>
-            <p>Product Detail Page</p>
             <Header />
             <img src={`../${selectedProduct.productImage}`} />
             <h1>{selectedProduct.productName}</h1>

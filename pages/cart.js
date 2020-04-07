@@ -1,11 +1,67 @@
+import { useSelector, useDispatch } from 'react-redux';
+
 import Layout from '../components/layout';
 import Header from '../components/header';
 
-export default function Cart() {
+import * as cartActions from "../store/actions/cart";
+
+import CurrencyFormat from 'react-currency-format';
+
+const CartList = ({ id, image, name, price, quantity, sum }) => {
+    const dispatch = useDispatch();
+
+    return (
+        <div>
+            <h4>{name}</h4>
+            <p>Price : <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} /></p>
+            <p>Quantity: {quantity}</p>
+            <p>SubTotal: <CurrencyFormat value={sum} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} /></p>
+            <button onClick={() => { dispatch(cartActions.removeFromCart(id)) }}>Delete This Item</button>
+        </div>
+    )
+}
+
+const Cart = () => {
+    const cartItems = useSelector(state => {
+        const transformedCartItems = [];
+        for (const key in state.cart.items) {
+            transformedCartItems.push({
+                productId: key,
+                productName: state.cart.items[key].productName,
+                productPrice: state.cart.items[key].productPrice,
+                quantity: state.cart.items[key].quantity,
+                sum: state.cart.items[key].sum
+            });
+        }
+        return transformedCartItems;
+    });
+
+    const totalAmount = useSelector(state => state.cart.totalAmount);
+
     return (
         <Layout>
-            <p>Cart page</p>
             <Header />
+            {
+                totalAmount === 0
+                    ? <h2>Your Cart is Empty</h2>
+                    : cartItems.map(item =>
+                        <CartList
+                            key={item.productId}
+                            id={item.productId}
+                            image={item.productImage}
+                            name={item.productName}
+                            price={item.productPrice}
+                            quantity={item.quantity}
+                            sum={item.sum}
+                        />
+                    )
+            }
+            {
+                totalAmount !== 0 &&
+                <h2>Grand Total: <CurrencyFormat value={totalAmount} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} /> </h2>
+            }
         </Layout>
     )
 }
+
+export default Cart;

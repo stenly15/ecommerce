@@ -111,9 +111,13 @@ var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/button-l
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-const ButtonLink = props => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: `/${props.path}/[id]`,
-  as: `/${props.path}/${props.id}`,
+const ButtonLink = ({
+  path,
+  id,
+  title
+}) => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  href: `/${path}/[id]`,
+  as: `/${path}/${id}`,
   __self: undefined,
   __source: {
     fileName: _jsxFileName,
@@ -127,7 +131,7 @@ const ButtonLink = props => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default
     lineNumber: 5,
     columnNumber: 9
   }
-}, props.title));
+}, title));
 
 /* harmony default export */ __webpack_exports__["default"] = (ButtonLink);
 
@@ -272,9 +276,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
 /* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
 /* harmony import */ var _components_button_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/button-link */ "./components/button-link.js");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-currency-format */ "react-currency-format");
+/* harmony import */ var react_currency_format__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_currency_format__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/product-item.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -293,7 +300,7 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14,
+      lineNumber: 16,
       columnNumber: 9
     }
   }, __jsx("img", {
@@ -301,28 +308,39 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 15,
+      lineNumber: 17,
       columnNumber: 13
     }
   }), __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 18,
       columnNumber: 13
     }
   }, name), __jsx("h3", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 19,
       columnNumber: 13
     }
-  }, price), __jsx("p", {
+  }, __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    value: price,
+    displayType: 'text',
+    thousandSeparator: true,
+    prefix: 'Rp. ',
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 19,
+      columnNumber: 17
+    }
+  })), __jsx("p", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
       columnNumber: 13
     }
   }, description), __jsx("button", {
@@ -332,7 +350,7 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 21,
       columnNumber: 13
     }
   }, "Add To Wishlist"), __jsx(_components_button_link__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -342,7 +360,7 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 22,
       columnNumber: 13
     }
   }), __jsx("button", {
@@ -352,7 +370,7 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 23,
       columnNumber: 13
     }
   }, "Add To Cart"));
@@ -429,7 +447,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const Search = () => {
   return __jsx("div", {
     style: {
-      flex: 1
+      flex: 1,
+      margin: 20
     },
     __self: undefined,
     __source: {
@@ -2212,18 +2231,22 @@ const Index = () => {
 /*!*******************************!*\
   !*** ./store/actions/cart.js ***!
   \*******************************/
-/*! exports provided: ADD_TO_CART, addToCart */
+/*! exports provided: ADD_TO_CART, REMOVE_FROM_CART, addToCart, removeFromCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART", function() { return REMOVE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromCart", function() { return removeFromCart; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
 
 const ADD_TO_CART = 'ADD_TO_CART';
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+const removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
 
 /***/ }),
 
@@ -2299,6 +2322,17 @@ module.exports = require("prop-types-exact");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-currency-format":
+/*!****************************************!*\
+  !*** external "react-currency-format" ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-currency-format");
 
 /***/ }),
 

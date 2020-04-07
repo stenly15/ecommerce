@@ -160,18 +160,22 @@ function MyApp({
 /*!*******************************!*\
   !*** ./store/actions/cart.js ***!
   \*******************************/
-/*! exports provided: ADD_TO_CART, addToCart */
+/*! exports provided: ADD_TO_CART, REMOVE_FROM_CART, addToCart, removeFromCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART", function() { return REMOVE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFromCart", function() { return removeFromCart; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
 
 const ADD_TO_CART = 'ADD_TO_CART';
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
+const removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
 
 /***/ }),
 
@@ -234,16 +238,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 const initialState = {
-  items: {}
+  items: {},
+  totalAmount: 0
 };
 const cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
   [_actions_cart__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_CART"]]: (state, action) => {
-    const addedProduct = action.payload;
-    const productId = addedProduct.productId;
-    const productPrice = addedProduct.productPrice;
-    const productName = addedProduct.productName;
-    const productDescription = addedProduct.productDescription;
-    const productImage = addedProduct.productImage;
+    const {
+      productId,
+      productName,
+      productPrice,
+      productDescription,
+      productImage,
+      productCategory
+    } = action.payload;
     let updatedOrNewCartItem;
 
     if (state.items[productId]) {
@@ -253,7 +260,9 @@ const cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["create
         productPrice,
         productDescription,
         productImage,
-        quantity: state.items[productId].quantity + 1
+        productCategory,
+        quantity: state.items[productId].quantity + 1,
+        sum: state.items[productId].sum + productPrice
       };
     } else {
       updatedOrNewCartItem = {
@@ -262,14 +271,54 @@ const cartReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["create
         productPrice,
         productDescription,
         productImage,
-        quantity: 1
+        productCategory,
+        quantity: 1,
+        sum: productPrice
       };
     }
 
     return _objectSpread({}, state, {
       items: _objectSpread({}, state.items, {
         [productId]: updatedOrNewCartItem
-      })
+      }),
+      totalAmount: state.totalAmount + productPrice
+    });
+  },
+  [_actions_cart__WEBPACK_IMPORTED_MODULE_0__["REMOVE_FROM_CART"]]: (state, action) => {
+    const {
+      productId,
+      productName,
+      productPrice,
+      productDescription,
+      productImage,
+      productCategory,
+      quantity
+    } = state.items[action.payload];
+    let updatedCartItems;
+
+    if (quantity > 1) {
+      //need to reduce, not erase it
+      updatedCartItems = {
+        productId,
+        productName,
+        productPrice,
+        productDescription,
+        productImage,
+        productCategory,
+        quantity: state.items[productId].quantity - 1,
+        sum: state.items[productId].sum - productPrice
+      };
+      updatedCartItems = _objectSpread({}, state.items, {
+        [action.payload]: updatedCartItems
+      });
+    } else {
+      updatedCartItems = _objectSpread({}, state.items);
+      delete updatedCartItems[action.payload];
+    }
+
+    return _objectSpread({}, state, {
+      items: updatedCartItems,
+      totalAmount: state.totalAmount - productPrice
     });
   }
 });
@@ -301,21 +350,24 @@ const initialState = {
   availableProducts: [{
     productId: '1',
     productName: 'Star Wars Home Arcade Game',
-    productPrice: 'Rp. 6749865',
+    productPrice: 25000000,
     productDescription: 'This gergeous, three-quarter-sized arcade cabinet comes loaded ' + 'with some classic Star Wars gaming titles, including A New Hope, ' + 'The Empire Strikes Back, and Return of the Jedi.',
-    productImage: 'img1.png'
+    productImage: 'img1.png',
+    productCategory: 'Games'
   }, {
     productId: '2',
     productName: 'Poe\'s Boosted X-Wing Fighter',
-    productPrice: 'Rp. 6749865',
+    productPrice: 15000000,
     productDescription: 'For battling womp rats and tie fighters, and because you can\'t spell \"Poe Dameron\" without \"drone.\"',
-    productImage: 'img2.png'
+    productImage: 'img2.png',
+    productCategory: 'Toys'
   }, {
     productId: '3',
     productName: 'Star Wars\' Phone Cases',
-    productPrice: 'Rp. 6749865',
+    productPrice: 2500000,
     productDescription: 'If you want to show your love for the movie every day.',
-    productImage: 'img3.png'
+    productImage: 'img3.png',
+    productCategory: 'Accecories'
   }]
 };
 const productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
@@ -352,18 +404,21 @@ const initialState = {
 };
 const wishlistReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
   [_actions_wishlist__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_WISHLIST"]]: (state, action) => {
-    const addedProduct = action.payload;
-    const productId = addedProduct.productId;
-    const productPrice = addedProduct.productPrice;
-    const productName = addedProduct.productName;
-    const productDescription = addedProduct.productDescription;
-    const productImage = addedProduct.productImage;
+    const {
+      productId,
+      productName,
+      productPrice,
+      productDescription,
+      productImage,
+      productCategory
+    } = action.payload;
     let wishListItem = {
       productId,
       productName,
       productPrice,
       productDescription,
-      productImage
+      productImage,
+      productCategory
     };
     return _objectSpread({}, state, {
       items: _objectSpread({}, state.items, {
