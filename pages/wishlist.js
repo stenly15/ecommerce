@@ -4,8 +4,8 @@ import Header from '../components/header';
 const WishList = () => {
     return (
         <Layout>
+            <p>Wishlist page</p>
             <Header />
-            <p>Wishlist</p>
         </Layout>
     )
 }

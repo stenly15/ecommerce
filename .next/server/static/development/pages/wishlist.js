@@ -124,7 +124,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12,
+      lineNumber: 13,
       columnNumber: 9
     }
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -132,7 +132,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13,
+      lineNumber: 14,
       columnNumber: 13
     }
   }, __jsx("a", {
@@ -140,7 +140,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14,
+      lineNumber: 15,
       columnNumber: 17
     }
   }, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -148,7 +148,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 17,
       columnNumber: 13
     }
   }, __jsx("a", {
@@ -156,7 +156,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 18,
       columnNumber: 17
     }
   }, "Cart(", Object.keys(cart).length, ")")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -164,7 +164,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 20,
       columnNumber: 13
     }
   }, __jsx("a", {
@@ -172,7 +172,7 @@ const Header = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 21,
       columnNumber: 17
     }
   }, "Wishlist(", Object.keys(wishlist).length, ")")));
@@ -1918,21 +1918,21 @@ const WishList = () => {
       lineNumber: 6,
       columnNumber: 9
     }
-  }, __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, __jsx("p", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7,
       columnNumber: 13
     }
-  }), __jsx("p", {
+  }, "Wishlist page"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8,
       columnNumber: 13
     }
-  }, "Wishlist"));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (WishList);

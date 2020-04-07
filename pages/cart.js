@@ -4,8 +4,8 @@ import Header from '../components/header';
 export default function Cart() {
     return (
         <Layout>
+            <p>Cart page</p>
             <Header />
-            <p>Cart</p>
         </Layout>
     )
 }

@@ -8,6 +8,7 @@ const linkStyle = {
 const Header = () => {
     const cart = useSelector(state => state.cart.items);
     const wishlist = useSelector(state => state.wishlist.items);
+
     return (
         <div>
             <Link href="/">
