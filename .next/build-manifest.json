@@ -31,14 +31,6 @@
     "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
-    ],
-    "/product-detail/[id]": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/wishlist": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
     ]
   }
 }
