@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import ProductItem from './productItem';
+import ProductItem from './product-item';
 
 const Products = () => {
     const products = useSelector(state => state.products.availableProducts);
