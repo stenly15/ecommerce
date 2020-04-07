@@ -1,15 +1,9 @@
-import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as cartActions from "../store/actions/cart";
 import * as wishListActions from '../store/actions/wishlist';
 
-
-const ButtonLink = props => (
-    <Link href="/product-detail/[id]" as={`/product-detail/${props.id}`}>
-        <button>{props.title}</button>
-    </Link>
-);
+import ButtonLink from '../components/button-link';
 
 const ProductItem = ({ id, image, name, price, description }) => {
 
@@ -23,7 +17,7 @@ const ProductItem = ({ id, image, name, price, description }) => {
             <h3>{price}</h3>
             <p>{description}</p>
             <button onClick={() => { dispatch(wishListActions.addToWishList(product[id - 1])) }}>Add To Wishlist</button>
-            <ButtonLink title="View" id={id} />
+            <ButtonLink title="View" id={id} path="product-detail" />
             <button onClick={() => { dispatch(cartActions.addToCart(product[id - 1])) }}>Add To Cart</button>
         </div>
     )

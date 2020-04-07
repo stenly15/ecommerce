@@ -93,6 +93,46 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/button-link.js":
+/*!***********************************!*\
+  !*** ./components/button-link.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/button-link.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+const ButtonLink = props => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  href: `/${props.path}/[id]`,
+  as: `/${props.path}/${props.id}`,
+  __self: undefined,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 4,
+    columnNumber: 5
+  }
+}, __jsx("button", {
+  __self: undefined,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 5,
+    columnNumber: 9
+  }
+}, props.title));
+
+/* harmony default export */ __webpack_exports__["default"] = (ButtonLink);
+
+/***/ }),
+
 /***/ "./components/header.js":
 /*!******************************!*\
   !*** ./components/header.js ***!
@@ -227,12 +267,11 @@ const Layout = props => __jsx("div", {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
-/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
+/* harmony import */ var _components_button_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/button-link */ "./components/button-link.js");
 var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/product-item.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -241,24 +280,6 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const ButtonLink = props => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: "/product-detail/[id]",
-  as: `/product-detail/${props.id}`,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 9,
-    columnNumber: 5
-  }
-}, __jsx("button", {
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 10,
-    columnNumber: 9
-  }
-}, props.title));
-
 const ProductItem = ({
   id,
   image,
@@ -266,13 +287,13 @@ const ProductItem = ({
   price,
   description
 }) => {
-  const product = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.products.availableProducts);
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  const product = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.products.availableProducts);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
   return __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 14,
       columnNumber: 9
     }
   }, __jsx("img", {
@@ -280,57 +301,58 @@ const ProductItem = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 15,
       columnNumber: 13
     }
   }), __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 16,
       columnNumber: 13
     }
   }, name), __jsx("h3", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 17,
       columnNumber: 13
     }
   }, price), __jsx("p", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24,
+      lineNumber: 18,
       columnNumber: 13
     }
   }, description), __jsx("button", {
     onClick: () => {
-      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__["addToWishList"](product[id - 1]));
+      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__["addToWishList"](product[id - 1]));
     },
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 25,
+      lineNumber: 19,
       columnNumber: 13
     }
-  }, "Add To Wishlist"), __jsx(ButtonLink, {
+  }, "Add To Wishlist"), __jsx(_components_button_link__WEBPACK_IMPORTED_MODULE_4__["default"], {
     title: "View",
     id: id,
+    path: "product-detail",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26,
+      lineNumber: 20,
       columnNumber: 13
     }
   }), __jsx("button", {
     onClick: () => {
-      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_3__["addToCart"](product[id - 1]));
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_2__["addToCart"](product[id - 1]));
     },
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27,
+      lineNumber: 21,
       columnNumber: 13
     }
   }, "Add To Cart"));
