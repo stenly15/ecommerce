@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -213,235 +213,6 @@ const Layout = props => __jsx("div", {
 }, props.children);
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
-
-/***/ }),
-
-/***/ "./components/product-item.js":
-/*!************************************!*\
-  !*** ./components/product-item.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
-/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/product-item.js";
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-
-const ButtonLink = props => __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  href: "/product-detail/[id]",
-  as: `/product-detail/${props.id}`,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 9,
-    columnNumber: 5
-  }
-}, __jsx("button", {
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 10,
-    columnNumber: 9
-  }
-}, props.title));
-
-const ProductItem = ({
-  id,
-  image,
-  name,
-  price,
-  description
-}) => {
-  const product = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.products.availableProducts);
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
-  return __jsx("div", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 20,
-      columnNumber: 9
-    }
-  }, __jsx("img", {
-    src: image,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 21,
-      columnNumber: 13
-    }
-  }), __jsx("h1", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 22,
-      columnNumber: 13
-    }
-  }, name), __jsx("h3", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 23,
-      columnNumber: 13
-    }
-  }, price), __jsx("p", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 24,
-      columnNumber: 13
-    }
-  }, description), __jsx("button", {
-    onClick: () => {
-      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__["addToWishList"](product[id - 1]));
-    },
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 25,
-      columnNumber: 13
-    }
-  }, "Add To Wishlist"), __jsx(ButtonLink, {
-    title: "View",
-    id: id,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 26,
-      columnNumber: 13
-    }
-  }), __jsx("button", {
-    onClick: () => {
-      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_3__["addToCart"](product[id - 1]));
-    },
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 27,
-      columnNumber: 13
-    }
-  }, "Add To Cart"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (ProductItem);
-
-/***/ }),
-
-/***/ "./components/products.js":
-/*!********************************!*\
-  !*** ./components/products.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _product_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./product-item */ "./components/product-item.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/products.js";
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-const Products = () => {
-  const products = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.products.availableProducts);
-  return __jsx("div", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 9
-    }
-  }, products.map(item => __jsx(_product_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    key: item.productId,
-    id: item.productId,
-    image: item.productImage,
-    name: item.productName,
-    price: item.productPrice,
-    description: item.productDescription,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 10,
-      columnNumber: 38
-    }
-  })));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Products);
-
-/***/ }),
-
-/***/ "./components/search.js":
-/*!******************************!*\
-  !*** ./components/search.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/search.js";
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-const Search = () => {
-  return __jsx("div", {
-    style: {
-      flex: 1
-    },
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 3,
-      columnNumber: 9
-    }
-  }, __jsx("input", {
-    type: "text",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 4,
-      columnNumber: 13
-    }
-  }), __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Filter by Category: "), __jsx("select", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6,
-      columnNumber: 13
-    }
-  }, __jsx("option", {
-    value: "",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7,
-      columnNumber: 17
-    }
-  }, "Category")));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Search);
 
 /***/ }),
 
@@ -2120,130 +1891,61 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 /***/ }),
 
-/***/ "./pages/index.js":
-/*!************************!*\
-  !*** ./pages/index.js ***!
-  \************************/
+/***/ "./pages/cart.js":
+/*!***********************!*\
+  !*** ./pages/cart.js ***!
+  \***********************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cart; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
 /* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
-/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/search */ "./components/search.js");
-/* harmony import */ var _components_products__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/products */ "./components/products.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/index.js";
+var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-
-
-
-const Index = () => {
+function Cart() {
   return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __self: undefined,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 9
+    }
+  }, __jsx("p", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 13
+    }
+  }, "Cart page"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8,
-      columnNumber: 9
-    }
-  }, __jsx("h1", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9,
-      columnNumber: 13
-    }
-  }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 10,
-      columnNumber: 13
-    }
-  }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11,
-      columnNumber: 13
-    }
-  }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 12,
       columnNumber: 13
     }
   }));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Index);
+}
 
 /***/ }),
 
-/***/ "./store/actions/cart.js":
-/*!*******************************!*\
-  !*** ./store/actions/cart.js ***!
-  \*******************************/
-/*! exports provided: ADD_TO_CART, addToCart */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
-
-const ADD_TO_CART = 'ADD_TO_CART';
-const addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
-
-/***/ }),
-
-/***/ "./store/actions/wishlist.js":
-/*!***********************************!*\
-  !*** ./store/actions/wishlist.js ***!
-  \***********************************/
-/*! exports provided: ADD_TO_WISHLIST, addToWishList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_WISHLIST", function() { return ADD_TO_WISHLIST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToWishList", function() { return addToWishList; });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
-
-const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
-const addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_WISHLIST);
-
-/***/ }),
-
-/***/ 3:
-/*!******************************!*\
-  !*** multi ./pages/index.js ***!
-  \******************************/
+/***/ 7:
+/*!*****************************!*\
+  !*** multi ./pages/cart.js ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/cart.js */"./pages/cart.js");
 
-
-/***/ }),
-
-/***/ "@reduxjs/toolkit":
-/*!***********************************!*\
-  !*** external "@reduxjs/toolkit" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@reduxjs/toolkit");
 
 /***/ }),
 
@@ -2314,4 +2016,4 @@ module.exports = require("url");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=cart.js.map

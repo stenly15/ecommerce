@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import Layout from '../components/layout';
-import Header from '../components/header';
+import Layout from '../../components/layout';
+import Header from '../../components/header';
 
-import * as cartActions from '../store/actions/cart';
-import * as wishListActions from '../store/actions/wishlist';
+import * as cartActions from '../../store/actions/cart';
+import * as wishListActions from '../../store/actions/wishlist';
 
 const ProductDetail = props => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const ProductDetail = props => {
         <Layout>
             <p>Product Detail Page</p>
             <Header />
-            <img src={selectedProduct.productImage} />
+            <img src={`../${selectedProduct.productImage}`} />
             <h1>{selectedProduct.productName}</h1>
             <h3>{selectedProduct.productPrice}</h3>
             <p>{selectedProduct.productDescription}</p>

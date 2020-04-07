@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = require('../../../ssr-module-cache.js');
+/******/ 	var installedModules = require('../../../../ssr-module-cache.js');
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -1891,10 +1891,10 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 /***/ }),
 
-/***/ "./pages/[id].js":
-/*!***********************!*\
-  !*** ./pages/[id].js ***!
-  \***********************/
+/***/ "./pages/product-detail/[id].js":
+/*!**************************************!*\
+  !*** ./pages/product-detail/[id].js ***!
+  \**************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1904,11 +1904,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
-/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
-/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
-var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/[id].js";
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/header */ "./components/header.js");
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/actions/wishlist */ "./store/actions/wishlist.js");
+var _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/product-detail/[id].js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -1942,7 +1942,7 @@ const ProductDetail = props => {
       columnNumber: 13
     }
   }), __jsx("img", {
-    src: selectedProduct.productImage,
+    src: `../${selectedProduct.productImage}`,
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
@@ -2045,13 +2045,13 @@ const addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["crea
 /***/ }),
 
 /***/ 4:
-/*!*****************************!*\
-  !*** multi ./pages/[id].js ***!
-  \*****************************/
+/*!********************************************!*\
+  !*** multi ./pages/product-detail/[id].js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/[id].js */"./pages/[id].js");
+module.exports = __webpack_require__(/*! /Users/mayrra/Workspace/hctive/ecommerce/pages/product-detail/[id].js */"./pages/product-detail/[id].js");
 
 
 /***/ }),

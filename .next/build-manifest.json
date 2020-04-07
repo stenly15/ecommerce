@@ -12,10 +12,6 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/[id]": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -28,7 +24,23 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
+    "/cart": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/next/dist/pages/_error": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/product-detail/[id]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/wishlist": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/index.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/product-detail/[id].js"],{
 
 /***/ "./components/header.js":
 /*!******************************!*\
@@ -129,246 +129,6 @@ var Layout = function Layout(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
-
-/***/ }),
-
-/***/ "./components/product-item.js":
-/*!************************************!*\
-  !*** ./components/product-item.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/cart */ "./store/actions/cart.js");
-/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions/wishlist */ "./store/actions/wishlist.js");
-var _this = undefined,
-    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/product-item.js";
-
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-
-var ButtonLink = function ButtonLink(props) {
-  return __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/product-detail/[id]",
-    as: "/product-detail/".concat(props.id),
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9,
-      columnNumber: 5
-    }
-  }, __jsx("button", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 10,
-      columnNumber: 9
-    }
-  }, props.title));
-};
-
-var ProductItem = function ProductItem(_ref) {
-  var id = _ref.id,
-      image = _ref.image,
-      name = _ref.name,
-      price = _ref.price,
-      description = _ref.description;
-  var product = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
-    return state.products.availableProducts;
-  });
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
-  return __jsx("div", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 20,
-      columnNumber: 9
-    }
-  }, __jsx("img", {
-    src: image,
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 21,
-      columnNumber: 13
-    }
-  }), __jsx("h1", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 22,
-      columnNumber: 13
-    }
-  }, name), __jsx("h3", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 23,
-      columnNumber: 13
-    }
-  }, price), __jsx("p", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 24,
-      columnNumber: 13
-    }
-  }, description), __jsx("button", {
-    onClick: function onClick() {
-      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_4__["addToWishList"](product[id - 1]));
-    },
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 25,
-      columnNumber: 13
-    }
-  }, "Add To Wishlist"), __jsx(ButtonLink, {
-    title: "View",
-    id: id,
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 26,
-      columnNumber: 13
-    }
-  }), __jsx("button", {
-    onClick: function onClick() {
-      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_3__["addToCart"](product[id - 1]));
-    },
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 27,
-      columnNumber: 13
-    }
-  }, "Add To Cart"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (ProductItem);
-
-/***/ }),
-
-/***/ "./components/products.js":
-/*!********************************!*\
-  !*** ./components/products.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _product_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./product-item */ "./components/product-item.js");
-var _this = undefined,
-    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/products.js";
-
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-var Products = function Products() {
-  var products = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
-    return state.products.availableProducts;
-  });
-  return __jsx("div", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 9
-    }
-  }, products.map(function (item) {
-    return __jsx(_product_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      key: item.productId,
-      id: item.productId,
-      image: item.productImage,
-      name: item.productName,
-      price: item.productPrice,
-      description: item.productDescription,
-      __self: _this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 10,
-        columnNumber: 38
-      }
-    });
-  }));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Products);
-
-/***/ }),
-
-/***/ "./components/search.js":
-/*!******************************!*\
-  !*** ./components/search.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined,
-    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/search.js";
-
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-var Search = function Search() {
-  return __jsx("div", {
-    style: {
-      flex: 1
-    },
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 3,
-      columnNumber: 9
-    }
-  }, __jsx("input", {
-    type: "text",
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 4,
-      columnNumber: 13
-    }
-  }), __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Filter by Category: "), __jsx("select", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6,
-      columnNumber: 13
-    }
-  }, __jsx("option", {
-    value: "",
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7,
-      columnNumber: 17
-    }
-  }, "Category")));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Search);
 
 /***/ }),
 
@@ -2577,21 +2337,21 @@ var assign=Object.assign.bind(Object);function g(){return assign;}Object.defineP
 
 /***/ }),
 
-/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Findex.js!./":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Findex.js ***!
-  \**********************************************************************************************************************************************************************************/
+/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fproduct-detail%2F%5Bid%5D&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Fproduct-detail%2F%5Bid%5D.js!./":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fproduct-detail%2F%5Bid%5D&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Fproduct-detail%2F%5Bid%5D.js ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    (window.__NEXT_P=window.__NEXT_P||[]).push(["/", function() {
-      var mod = __webpack_require__(/*! ./pages/index.js */ "./pages/index.js")
+    (window.__NEXT_P=window.__NEXT_P||[]).push(["/product-detail/[id]", function() {
+      var mod = __webpack_require__(/*! ./pages/product-detail/[id].js */ "./pages/product-detail/[id].js")
       if(true) {
-        module.hot.accept(/*! ./pages/index.js */ "./pages/index.js", function() {
-          if(!next.router.components["/"]) return
-          var updatedPage = __webpack_require__(/*! ./pages/index.js */ "./pages/index.js")
-          next.router.update("/", updatedPage)
+        module.hot.accept(/*! ./pages/product-detail/[id].js */ "./pages/product-detail/[id].js", function() {
+          if(!next.router.components["/product-detail/[id]"]) return
+          var updatedPage = __webpack_require__(/*! ./pages/product-detail/[id].js */ "./pages/product-detail/[id].js")
+          next.router.update("/product-detail/[id]", updatedPage)
         })
       }
       return mod
@@ -9165,10 +8925,10 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./pages/index.js":
-/*!************************!*\
-  !*** ./pages/index.js ***!
-  \************************/
+/***/ "./pages/product-detail/[id].js":
+/*!**************************************!*\
+  !*** ./pages/product-detail/[id].js ***!
+  \**************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9176,12 +8936,13 @@ module.exports = function(originalModule) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/header */ "./components/header.js");
-/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/search */ "./components/search.js");
-/* harmony import */ var _components_products__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/products */ "./components/products.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/header */ "./components/header.js");
+/* harmony import */ var _store_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/actions/cart */ "./store/actions/cart.js");
+/* harmony import */ var _store_actions_wishlist__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/actions/wishlist */ "./store/actions/wishlist.js");
 var _this = undefined,
-    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/index.js";
+    _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/pages/product-detail/[id].js";
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -9190,46 +8951,93 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-var Index = function Index() {
-  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+
+var ProductDetail = function ProductDetail(props) {
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  var selectedProduct = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.products.availableProducts[props.id - 1];
+  });
+  return __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
+      lineNumber: 14,
       columnNumber: 9
     }
-  }, __jsx("h1", {
+  }, __jsx("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
+      lineNumber: 15,
       columnNumber: 13
     }
-  }, "Next Market"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Product Detail Page"), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10,
+      lineNumber: 16,
       columnNumber: 13
     }
-  }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), __jsx("img", {
+    src: "../".concat(selectedProduct.productImage),
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11,
+      lineNumber: 17,
       columnNumber: 13
     }
-  }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }), __jsx("h1", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12,
+      lineNumber: 18,
       columnNumber: 13
     }
-  }));
+  }, selectedProduct.productName), __jsx("h3", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, selectedProduct.productPrice), __jsx("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 13
+    }
+  }, selectedProduct.productDescription), __jsx("button", {
+    onClick: function onClick() {
+      dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_5__["addToWishList"](selectedProduct));
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 13
+    }
+  }, "Add To Wishlist"), __jsx("button", {
+    onClick: function onClick() {
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_4__["addToCart"](selectedProduct));
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 13
+    }
+  }, "Add To Cart"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Index);
+ProductDetail.getInitialProps = function (context) {
+  var id = context.query.id;
+  return {
+    id: id
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ProductDetail);
 
 /***/ }),
 
@@ -9269,14 +9077,14 @@ var addToWishList = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 1:
-/*!**************************************************************************************************************************************!*\
-  !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Findex.js ***!
-  \**************************************************************************************************************************************/
+/***/ 2:
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** multi next-client-pages-loader?page=%2Fproduct-detail%2F%5Bid%5D&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Fproduct-detail%2F%5Bid%5D.js ***!
+  \***********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Findex.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Findex.js!./");
+module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2Fproduct-detail%2F%5Bid%5D&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Fproduct-detail%2F%5Bid%5D.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fproduct-detail%2F%5Bid%5D&absolutePagePath=%2FUsers%2Fmayrra%2FWorkspace%2Fhctive%2Fecommerce%2Fpages%2Fproduct-detail%2F%5Bid%5D.js!./");
 
 
 /***/ }),
@@ -9292,5 +9100,5 @@ module.exports = dll_2adc2403d89adc16ead0;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]);
-//# sourceMappingURL=index.js.map
+},[[2,"static/runtime/webpack.js"]]]);
+//# sourceMappingURL=[id].js.map

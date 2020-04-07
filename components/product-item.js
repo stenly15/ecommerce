@@ -6,7 +6,7 @@ import * as wishListActions from '../store/actions/wishlist';
 
 
 const ButtonLink = props => (
-    <Link href="/[id]" as={`/${props.id}`}>
+    <Link href="/product-detail/[id]" as={`/product-detail/${props.id}`}>
         <button>{props.title}</button>
     </Link>
 );
