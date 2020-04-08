@@ -332,17 +332,17 @@ var Products = function Products() {
   var searchProducts = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
     return state.products.searchProducts;
   });
-  var productCategory = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+  var category = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
     return state.products.productCategory;
   });
-  var filteredProduct = products.filter(function (product) {
-    return product.productName.toLowerCase().includes(searchProducts.toLowerCase());
+  var filteredProduct = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.products.filteredProduct;
   });
   return __jsx("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 15,
       columnNumber: 9
     }
   }, __jsx("div", {
@@ -353,10 +353,10 @@ var Products = function Products() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 16,
       columnNumber: 13
     }
-  }, __jsx("input", {
+  }, __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Search: "), __jsx("input", {
     type: "search",
     placeholder: "Cari aja dulu...",
     onChange: function onChange(e) {
@@ -365,23 +365,25 @@ var Products = function Products() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 18,
       columnNumber: 17
     }
   }), __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Filter by Category: "), __jsx("select", {
-    onChange: function onChange() {},
+    onChange: function onChange(e) {
+      dispatch(_store_actions_products__WEBPACK_IMPORTED_MODULE_3__["filterByCategory"](e.target.value));
+    },
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27,
+      lineNumber: 24,
       columnNumber: 17
     }
   }, __jsx("option", {
-    value: "All",
+    value: "",
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28,
+      lineNumber: 25,
       columnNumber: 21
     }
   }, "All"), __jsx("option", {
@@ -389,7 +391,7 @@ var Products = function Products() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 29,
+      lineNumber: 26,
       columnNumber: 21
     }
   }, "Games"), __jsx("option", {
@@ -397,7 +399,7 @@ var Products = function Products() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 30,
+      lineNumber: 27,
       columnNumber: 21
     }
   }, "Toys"), __jsx("option", {
@@ -405,10 +407,10 @@ var Products = function Products() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 31,
+      lineNumber: 28,
       columnNumber: 21
     }
-  }, "Accecories"))), filteredProduct.map(function (item) {
+  }, "Accecories"))), searchProducts !== '' || category !== '' ? filteredProduct.map(function (item) {
     return __jsx(_product_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: item.productId,
       id: item.productId,
@@ -420,8 +422,24 @@ var Products = function Products() {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 35,
-        columnNumber: 45
+        lineNumber: 33,
+        columnNumber: 51
+      }
+    });
+  }) : products.map(function (item) {
+    return __jsx(_product_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      key: item.productId,
+      id: item.productId,
+      image: item.productImage,
+      name: item.productName,
+      price: item.productPrice,
+      description: item.productDescription,
+      category: item.productCategory,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42,
+        columnNumber: 44
       }
     });
   }));
@@ -460,19 +478,19 @@ var Search = function Search() {
       lineNumber: 3,
       columnNumber: 9
     }
-  }, __jsx("input", {
+  }, __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Search: "), __jsx("input", {
     type: "text",
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4,
+      lineNumber: 5,
       columnNumber: 13
     }
   }), __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Filter by Category: "), __jsx("select", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6,
+      lineNumber: 7,
       columnNumber: 13
     }
   }, __jsx("option", {
@@ -480,7 +498,7 @@ var Search = function Search() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7,
+      lineNumber: 8,
       columnNumber: 17
     }
   }, "Category")));
@@ -10465,21 +10483,25 @@ var removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["creat
 /*!***********************************!*\
   !*** ./store/actions/products.js ***!
   \***********************************/
-/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, getAllProducts, searchProducts */
+/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, FILTER_BY_CATEGORY, getAllProducts, searchProducts, filterByCategory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_PRODUCTS", function() { return GET_ALL_PRODUCTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_PRODUCTS", function() { return SEARCH_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_BY_CATEGORY", function() { return FILTER_BY_CATEGORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllProducts", function() { return getAllProducts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchProducts", function() { return searchProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByCategory", function() { return filterByCategory; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 var GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 var SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
+var FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 var getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
 var searchProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(SEARCH_PRODUCTS);
+var filterByCategory = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(FILTER_BY_CATEGORY);
 
 /***/ }),
 

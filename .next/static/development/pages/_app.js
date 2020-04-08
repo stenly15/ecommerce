@@ -8253,21 +8253,25 @@ var removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["creat
 /*!***********************************!*\
   !*** ./store/actions/products.js ***!
   \***********************************/
-/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, getAllProducts, searchProducts */
+/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, FILTER_BY_CATEGORY, getAllProducts, searchProducts, filterByCategory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_PRODUCTS", function() { return GET_ALL_PRODUCTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_PRODUCTS", function() { return SEARCH_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_BY_CATEGORY", function() { return FILTER_BY_CATEGORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllProducts", function() { return getAllProducts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchProducts", function() { return searchProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByCategory", function() { return filterByCategory; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
 var GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 var SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
+var FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 var getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
 var searchProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(SEARCH_PRODUCTS);
+var filterByCategory = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(FILTER_BY_CATEGORY);
 
 /***/ }),
 
@@ -8441,13 +8445,26 @@ var initialState = {
     productCategory: 'Accecories'
   }],
   searchProducts: '',
-  productCategory: 'All'
+  productCategory: '',
+  filteredProduct: []
 };
 var productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__["createReducer"])(initialState, (_createReducer = {}, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_products__WEBPACK_IMPORTED_MODULE_1__["GET_ALL_PRODUCTS"], function (state) {
   return _objectSpread({}, state);
 }), Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_products__WEBPACK_IMPORTED_MODULE_1__["SEARCH_PRODUCTS"], function (state, action) {
+  var filteredProduct = state.availableProducts.filter(function (product) {
+    return product.productName.toLowerCase().includes(action.payload.toLowerCase());
+  });
   return _objectSpread({}, state, {
-    searchProducts: action.payload
+    searchProducts: action.payload,
+    filteredProduct: filteredProduct
+  });
+}), Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_createReducer, _actions_products__WEBPACK_IMPORTED_MODULE_1__["FILTER_BY_CATEGORY"], function (state, action) {
+  var filteredProduct = state.availableProducts.filter(function (product) {
+    return product.productCategory.includes(action.payload);
+  });
+  return _objectSpread({}, state, {
+    productCategory: action.payload,
+    filteredProduct: filteredProduct
   });
 }), _createReducer));
 /* harmony default export */ __webpack_exports__["default"] = (productReducer);

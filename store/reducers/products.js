@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, SEARCH_PRODUCTS } from "../actions/products";
+import { GET_ALL_PRODUCTS, SEARCH_PRODUCTS, FILTER_BY_CATEGORY } from "../actions/products";
 import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -31,7 +31,8 @@ const initialState = {
         }
     ],
     searchProducts: '',
-    productCategory: 'All'
+    productCategory: '',
+    filteredProduct: []
 };
 
 const productReducer = createReducer(initialState, {
@@ -41,11 +42,22 @@ const productReducer = createReducer(initialState, {
         };
     },
     [SEARCH_PRODUCTS]: (state, action) => {
+        const filteredProduct = state.availableProducts.filter(product => product.productName.toLowerCase().includes(action.payload.toLowerCase()));
         return {
             ...state,
-            searchProducts: action.payload
+            searchProducts: action.payload,
+            filteredProduct
+        }
+    },
+    [FILTER_BY_CATEGORY]: (state, action) => {
+        const filteredProduct = state.availableProducts.filter(product => product.productCategory.includes(action.payload));
+        return {
+            ...state,
+            productCategory: action.payload,
+            filteredProduct
         }
     }
 })
+
 
 export default productReducer;
