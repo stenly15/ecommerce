@@ -169,7 +169,7 @@ var Layout = function Layout(props) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
+      lineNumber: 8,
       columnNumber: 5
     }
   }, props.children);
@@ -212,7 +212,8 @@ var ProductItem = function ProductItem(_ref) {
       image = _ref.image,
       name = _ref.name,
       price = _ref.price,
-      description = _ref.description;
+      description = _ref.description,
+      category = _ref.category;
   var product = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
     return state.products.availableProducts;
   });
@@ -224,15 +225,7 @@ var ProductItem = function ProductItem(_ref) {
       lineNumber: 16,
       columnNumber: 9
     }
-  }, __jsx("img", {
-    src: image,
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 17,
-      columnNumber: 13
-    }
-  }), __jsx("h1", {
+  }, __jsx("h1", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
@@ -264,14 +257,21 @@ var ProductItem = function ProductItem(_ref) {
       lineNumber: 20,
       columnNumber: 13
     }
-  }, description), __jsx("button", {
+  }, description), __jsx("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 13
+    }
+  }, "Category : ", category), __jsx("button", {
     onClick: function onClick() {
       dispatch(_store_actions_wishlist__WEBPACK_IMPORTED_MODULE_3__["addToWishList"](product[id - 1]));
     },
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 22,
       columnNumber: 13
     }
   }, "Add To Wishlist"), __jsx(_components_button_link__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -281,7 +281,7 @@ var ProductItem = function ProductItem(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 23,
       columnNumber: 13
     }
   }), __jsx("button", {
@@ -291,7 +291,7 @@ var ProductItem = function ProductItem(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 24,
       columnNumber: 13
     }
   }, "Add To Cart"));
@@ -314,6 +314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _product_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./product-item */ "./components/product-item.js");
+/* harmony import */ var _store_actions_products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/products */ "./store/actions/products.js");
 var _this = undefined,
     _jsxFileName = "/Users/mayrra/Workspace/hctive/ecommerce/components/products.js";
 
@@ -322,18 +323,92 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
 var Products = function Products() {
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
   var products = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
     return state.products.availableProducts;
+  });
+  var searchProducts = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.products.searchProducts;
+  });
+  var productCategory = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.products.productCategory;
+  });
+  var filteredProduct = products.filter(function (product) {
+    return product.productName.toLowerCase().includes(searchProducts.toLowerCase());
   });
   return __jsx("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
+      lineNumber: 17,
       columnNumber: 9
     }
-  }, products.map(function (item) {
+  }, __jsx("div", {
+    style: {
+      flex: 1,
+      margin: 20
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 13
+    }
+  }, __jsx("input", {
+    type: "search",
+    placeholder: "Cari aja dulu...",
+    onChange: function onChange(e) {
+      dispatch(_store_actions_products__WEBPACK_IMPORTED_MODULE_3__["searchProducts"](e.target.value));
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 17
+    }
+  }), __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Filter by Category: "), __jsx("select", {
+    onChange: function onChange() {},
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 27,
+      columnNumber: 17
+    }
+  }, __jsx("option", {
+    value: "All",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28,
+      columnNumber: 21
+    }
+  }, "All"), __jsx("option", {
+    value: "Games",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 29,
+      columnNumber: 21
+    }
+  }, "Games"), __jsx("option", {
+    value: "Toys",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 30,
+      columnNumber: 21
+    }
+  }, "Toys"), __jsx("option", {
+    value: "Accecories",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 31,
+      columnNumber: 21
+    }
+  }, "Accecories"))), filteredProduct.map(function (item) {
     return __jsx(_product_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: item.productId,
       id: item.productId,
@@ -341,11 +416,12 @@ var Products = function Products() {
       name: item.productName,
       price: item.productPrice,
       description: item.productDescription,
+      category: item.productCategory,
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 10,
-        columnNumber: 38
+        lineNumber: 35,
+        columnNumber: 45
       }
     });
   }));
@@ -10349,13 +10425,6 @@ var Index = function Index() {
       lineNumber: 10,
       columnNumber: 13
     }
-  }), __jsx(_components_search__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11,
-      columnNumber: 13
-    }
   }), __jsx(_components_products__WEBPACK_IMPORTED_MODULE_4__["default"], {
     __self: _this,
     __source: {
@@ -10389,6 +10458,28 @@ var ADD_TO_CART = 'ADD_TO_CART';
 var REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 var addToCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(ADD_TO_CART);
 var removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(REMOVE_FROM_CART);
+
+/***/ }),
+
+/***/ "./store/actions/products.js":
+/*!***********************************!*\
+  !*** ./store/actions/products.js ***!
+  \***********************************/
+/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, getAllProducts, searchProducts */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_PRODUCTS", function() { return GET_ALL_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_PRODUCTS", function() { return SEARCH_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllProducts", function() { return getAllProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchProducts", function() { return searchProducts; });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+
+var GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+var SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
+var getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
+var searchProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(SEARCH_PRODUCTS);
 
 /***/ }),
 

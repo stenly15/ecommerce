@@ -183,18 +183,22 @@ const removeFromCart = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["cre
 /*!***********************************!*\
   !*** ./store/actions/products.js ***!
   \***********************************/
-/*! exports provided: GET_ALL_PRODUCTS, getAllProducts */
+/*! exports provided: GET_ALL_PRODUCTS, SEARCH_PRODUCTS, getAllProducts, searchProducts */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_PRODUCTS", function() { return GET_ALL_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_PRODUCTS", function() { return SEARCH_PRODUCTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllProducts", function() { return getAllProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchProducts", function() { return searchProducts; });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "@reduxjs/toolkit");
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__);
 
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
 const getAllProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(GET_ALL_PRODUCTS);
+const searchProducts = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["createAction"])(SEARCH_PRODUCTS);
 
 /***/ }),
 
@@ -372,11 +376,18 @@ const initialState = {
     productDescription: 'If you want to show your love for the movie every day.',
     productImage: 'img3.png',
     productCategory: 'Accecories'
-  }]
+  }],
+  searchProducts: '',
+  productCategory: 'All'
 };
 const productReducer = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__["createReducer"])(initialState, {
   [_actions_products__WEBPACK_IMPORTED_MODULE_0__["GET_ALL_PRODUCTS"]]: state => {
     return _objectSpread({}, state);
+  },
+  [_actions_products__WEBPACK_IMPORTED_MODULE_0__["SEARCH_PRODUCTS"]]: (state, action) => {
+    return _objectSpread({}, state, {
+      searchProducts: action.payload
+    });
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (productReducer);

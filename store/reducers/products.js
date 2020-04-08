@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS } from "../actions/products";
+import { GET_ALL_PRODUCTS, SEARCH_PRODUCTS } from "../actions/products";
 import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -29,7 +29,9 @@ const initialState = {
             productImage: 'img3.png',
             productCategory: 'Accecories'
         }
-    ]
+    ],
+    searchProducts: '',
+    productCategory: 'All'
 };
 
 const productReducer = createReducer(initialState, {
@@ -37,6 +39,12 @@ const productReducer = createReducer(initialState, {
         return {
             ...state
         };
+    },
+    [SEARCH_PRODUCTS]: (state, action) => {
+        return {
+            ...state,
+            searchProducts: action.payload
+        }
     }
 })
 

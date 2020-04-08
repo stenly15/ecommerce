@@ -8,7 +8,7 @@ const Index = () => {
         <Layout>
             <h1>Next Market</h1>
             <Header />
-            <Search />
+            {/* <Search /> */}
             <Products />
         </Layout>
     )
