@@ -9,6 +9,7 @@ import CurrencyFormat from 'react-currency-format';
 
 const CartItem = ({ id, name, price, quantity, sum }) => {
     const dispatch = useDispatch();
+    const product = useSelector(state => state.products.availableProducts);
 
     return (
         <div>
@@ -16,7 +17,8 @@ const CartItem = ({ id, name, price, quantity, sum }) => {
             <p>Price : <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} /></p>
             <p>Quantity: {quantity}</p>
             <p>SubTotal: <CurrencyFormat value={sum} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} /></p>
-            <button onClick={() => { dispatch(cartActions.removeFromCart(id)) }}>Delete This Item</button>
+            <button onClick={() => { dispatch(cartActions.addToCart(product[id - 1])) }}>Add Quantity</button>
+            <button onClick={() => { dispatch(cartActions.removeFromCart(id)) }}>Remove This Item</button>
         </div>
     )
 }

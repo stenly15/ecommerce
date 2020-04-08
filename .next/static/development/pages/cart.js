@@ -10055,25 +10055,28 @@ var CartItem = function CartItem(_ref) {
       quantity = _ref.quantity,
       sum = _ref.sum;
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  var product = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.products.availableProducts;
+  });
   return __jsx("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14,
+      lineNumber: 15,
       columnNumber: 9
     }
   }, __jsx("h4", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 15,
+      lineNumber: 16,
       columnNumber: 13
     }
   }, name), __jsx("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 17,
       columnNumber: 13
     }
   }, "Price : ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -10084,21 +10087,21 @@ var CartItem = function CartItem(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 17,
       columnNumber: 24
     }
   })), __jsx("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 18,
       columnNumber: 13
     }
   }, "Quantity: ", quantity), __jsx("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 19,
       columnNumber: 13
     }
   }, "SubTotal: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -10109,20 +10112,30 @@ var CartItem = function CartItem(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 19,
       columnNumber: 26
     }
   })), __jsx("button", {
+    onClick: function onClick() {
+      dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_4__["addToCart"](product[id - 1]));
+    },
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 13
+    }
+  }, "Add Quantity"), __jsx("button", {
     onClick: function onClick() {
       dispatch(_store_actions_cart__WEBPACK_IMPORTED_MODULE_4__["removeFromCart"](id));
     },
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 21,
       columnNumber: 13
     }
-  }, "Delete This Item"));
+  }, "Remove This Item"));
 };
 
 var Cart = function Cart() {
@@ -10148,21 +10161,21 @@ var Cart = function Cart() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42,
+      lineNumber: 44,
       columnNumber: 9
     }
   }, __jsx(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 43,
+      lineNumber: 45,
       columnNumber: 13
     }
   }), totalAmount === 0 ? __jsx("h2", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 46,
+      lineNumber: 48,
       columnNumber: 23
     }
   }, "Your Cart is Empty") : cartItems.map(function (item) {
@@ -10176,7 +10189,7 @@ var Cart = function Cart() {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 48,
+        lineNumber: 50,
         columnNumber: 25
       }
     });
@@ -10184,7 +10197,7 @@ var Cart = function Cart() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60,
+      lineNumber: 62,
       columnNumber: 17
     }
   }, "Grand Total: ", __jsx(react_currency_format__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -10195,7 +10208,7 @@ var Cart = function Cart() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60,
+      lineNumber: 62,
       columnNumber: 34
     }
   }), " "));
